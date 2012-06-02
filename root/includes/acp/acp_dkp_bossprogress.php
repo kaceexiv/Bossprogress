@@ -63,7 +63,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 			
 		}
 		
-		$game_id = request_var('displaygame', '');
+		$game_id = request_var('displaygame', $game_id = request_var('game_id', ''));
 		
 		// dump gamelist to template
 		foreach ($installed_games as $id => $gamename)
@@ -959,6 +959,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 				}
 				
 				$arrvals = array (
+					'GAME_ID'			 => $game_id,  
 					'F_CONFIG' 			 => append_sid("{$phpbb_admin_path}index.$phpEx", "i=dkp_bossprogress&amp;mode=zoneprogress"),
 					'BP_HIDENEWZONE'	 => ($config['bbdkp_bp_hidenewzone'] == 1) ? 'checked="checked"' : '',
 					'BP_HIDENONKIBOSS' 	 => ($config['bbdkp_bp_hidenonkilled'] == 1) ? 'checked="checked"' : '',

@@ -2,8 +2,6 @@
 <!--
 		$Id$
 //-->
-
-
 <!-- IF S_ADD -->
 	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
 
@@ -11,8 +9,7 @@
 	<p>{L_RP_ZONE_ADD_EXPLAIN}</p>
 
 	<form id="acp_zoneprogress_add" method="post" action="{U_ACTION}">
-	<input type="hidden" name="game_id" value="{GAME_ID}" />
-	<input type="hidden" name= zoneid" value="{ZONE_ID}" />
+
 	<fieldset>
 	<dl>
 		<dt><label for="zonename">{L_ZONE_NAME}:</label><br /><span>{L_ZONE_NAME_EXPLAIN}</span></dt>
@@ -58,6 +55,8 @@
 	</dl>
 	
 	<p class="submit-buttons">
+		<input type="hidden" name="game_id" value="{GAME_ID}" />
+		<input type="hidden" name= "zoneid" value="{ZONE_ID}" />
 		<input class="button1" type="submit" id="addnew" name="addnew" value="{L_SUBMIT}" />&nbsp;
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		{S_FORM_TOKEN}
@@ -179,6 +178,7 @@
 <br />
 
 <fieldset class="quick" style="float: {S_CONTENT_FLOW_BEGIN};">
+	<input type="hidden" name="game_id" value="{GAME_ID}" />
 	<input class="button2" name="bpadd" type="submit" value="{L_ADD}" />
 </fieldset>
 
