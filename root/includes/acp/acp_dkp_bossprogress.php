@@ -31,7 +31,11 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 	{
 	    global $db, $user, $template, $config, $phpEx, $phpbb_admin_path, $cache, $phpbb_root_path;   
         $user->add_lang(array('mods/dkp_admin','mods/dkp_common',  'mods/dkp_bossprogress' ));   
-		
+		// bossprogress version
+		$template->assign_vars ( array (
+				'BP_VERS' 		 	=> $config['bbdkp_bp_version'],
+		));		
+
 		/*
 		 * list installed games
 		 */

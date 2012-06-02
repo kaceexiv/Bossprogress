@@ -94,7 +94,8 @@ Imagename (filename without extension), if the zone is completed and the complet
 'RP_ZONEADDED' => 'Zone %s was added successfully',  
 'RP_ZONEUPDATED' => 'Zone %s was updated successfully',  
 
-'RP_BOSS' => 'Boss configuration',
+'RP_BOSS' => 'Bossprogress',
+'RP_ADD_BOSS' => 'Boss Settings',
 'RP_BOSS_EXPLAIN' => 'Here you can configure the boss photo, select to hide bosses that
  were never killed.<br />In the list, you can edit the boss name, shortname, 
  Imagename (this must be unique), whether the boss was killed and the completiondate. ', 
