@@ -8,8 +8,11 @@ Raid progress viewer
 *	Portal Block with Raid status and Boss tooltips
 *	ACP Zone editor
 *	ACP Boss editor
-*	ACP Events editor
-*	Boss and Event images included
+*	Event Creation easier : after you install Bossprogress, the Event creation ACP will have a new zone import pulldown. 
+		![image](http://i.imgur.com/uQ9NY.png)
+*	Boss images included (color and b/w)
+*	Zone images included (color, sepia and grey)
+
 
 ### Installation
 * 	Copy the Bossprogress folder to /store/mods/

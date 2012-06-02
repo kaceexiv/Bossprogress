@@ -1,10 +1,10 @@
 <?php
 /**
- * @package bbDkp-installer
+ * @package Bossprogress installer
  * @author sajaki9@gmail.com
  * @copyright (c) 2009 bbDkp <http://code.google.com/p/bbdkp/>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id$
+ * @version 1.0.6
  * 
  * Bossprogress plugin install script
  * 
@@ -39,11 +39,11 @@ if (!file_exists($phpbb_root_path . 'umil/umil_auto.' . $phpEx))
 
 if (!file_exists($phpbb_root_path . 'install/index.' . $phpEx))
 {
-    trigger_error('Warning! Install directory has wrong name. it must be \'install\'. Please rename it and launch again.', E_USER_WARNING);
+    trigger_error('Warning! Install directory has wrong name. it must be ‘install‘. Please rename it and launch again.', E_USER_WARNING);
 }
 
 // The name of the mod to be displayed during installation.
-$mod_name = 'Bossprogress Plugin 1.0.5';
+$mod_name = 'Bossprogress Plugin 1.0.6';
 
 /*
 * The name of the config variable which will hold the currently installed version
@@ -78,14 +78,13 @@ $logo_img = 'install/logo.png';
 
 
 $versions = array(
-    '1.0'    => array(
-    	// bbdkp tables (this uses the layout from develop/create_schema_files.php and from phpbb_db_tools)
+    '1.0.5'    => array(
         'table_add' => array(
 		  array($table_prefix . 'bbdkp_zonetable', array(
 	              'COLUMNS'            => array(
-	                  'id'     	       => array('UINT', NULL, 'auto_increment'), 
-	        		  'imagename'      => array('VCHAR_UNI:255', ''),
+	                  'id'     	       => array('UINT', 0), 
 					  'game'           => array('VCHAR:10', ''),
+	        		  'imagename'      => array('VCHAR_UNI:255', ''),
 					  'tier'           => array('VCHAR:30', ''),
 					  'completed'      => array('BOOL', 0),
 					  'completedate'   => array('TIMESTAMP', 0), 
@@ -94,15 +93,15 @@ $versions = array(
 	        		  'showzoneportal' => array('BOOL', 0), 
 	        		  'sequence'	   => array('UINT', 0),
 	                ),
-	                'PRIMARY_KEY'      => 'id',
+	                'PRIMARY_KEY'      => array('id','game'), 
 	            )),
 		          
           array($table_prefix . 'bbdkp_bosstable', array(
 	              'COLUMNS'            => array(
-	                  'id'     	       => array('UINT', NULL, 'auto_increment'), 
-	        		  'imagename'      => array('VCHAR_UNI:255', ''),
+	                  'id'     	       => array('UINT', 0), 
 	                  'game'           => array('VCHAR:10', ''),
 					  'zoneid'         => array('UINT', 0), 
+	        		  'imagename'      => array('VCHAR_UNI:255', ''),
 					  'type'           => array('VCHAR:10', ''),
 					  'webid'          => array('VCHAR:255', ''),
 					  'killed'         => array('BOOL', 0),
@@ -110,7 +109,7 @@ $versions = array(
 					  'counter'        => array('UINT', 0),
 	            	  'showboss'	   => array('BOOL', 0), 
 	          	),
-	                'PRIMARY_KEY'      => 'id',
+	                'PRIMARY_KEY'      => array('id','game'),
 	          		'KEYS'            => array('zoneid'    => array('INDEX', 'zoneid')),
 	            )),        
 
@@ -148,39 +147,17 @@ $versions = array(
          		)),
          		
           ),        
-            
-        'custom' => array(          
-            'Bossprogressupdater',
-       ), 
-    ),
-    
-		'1.0.2'    => array(
-			// compatible with 1.2.2		
-       ),       
-		'1.0.3'    => array(
-			// compatible with 1.2.3    
-        'custom' => array(          
 
-    		'tableupdater103', 
-            'gameinstall',
-            'Bossprogressupdater',
-       ), 
-    	
-    ),   
-		'1.0.4'    => array(
-			// bugfix in acp
-			 'custom' => array(          
-            'Bossprogressupdater',
-       	), 
-       ), 
-       
-		'1.0.5'    => array(
-			// version update
-			 'custom' => array(          
-            'Bossprogressupdater',
-       	), 
-       ),        
+     ),
     
+		'1.0.6'    => array(
+			// version update
+			 'custom' => array(  
+     		'gameinstall',         
+            'Bossprogressupdater',
+       	), 
+       ), 
+
 );
 
 // Include the UMIF Auto file and everything else will be handled automatically.
@@ -202,88 +179,6 @@ function bbdkp_caches($action, $version)
     $umil->cache_purge('auth');
     
     return 'UMIL_CACHECLEARED';
-}
-
-
-/**
- * updates bossprogress language table data 1.0 to 1.0.3
- * alter primary key of zone and boss table
- *
- */
-function tableupdater103($action, $version)
-{
-	global $db, $table_prefix, $user;
-	switch ($action)
-	{
-		// only run when upgrading
-		case 'update' :
-		case 'install' :			
-			switch ($version)
-			{
-				    // only run when upgrading to 1.0.3, 
-					case '1.0.3':
-						
-						// bosses 
-						
-						// remove autincrement
-						$sql = "ALTER TABLE " . $table_prefix . 'bbdkp_bosstable' . " MODIFY id INT NOT NULL";
-						$db->sql_query($sql);
-						
-						// drop pk on bosstable
-						$sql = "ALTER TABLE " . $table_prefix . 'bbdkp_bosstable' . " DROP PRIMARY KEY";
-						$db->sql_query($sql);
-	
-						// make new pk 
-						$sql= "ALTER TABLE " . $table_prefix . 'bbdkp_bosstable' . "  ADD PRIMARY KEY (game, id)";
-						$db->sql_query($sql);
-						
-						// zones 
-						
-						// remove autincrement
-						$sql = "ALTER TABLE " . $table_prefix . 'bbdkp_zonetable' . " MODIFY id INT NOT NULL";
-						$db->sql_query($sql);
-						
-						// drop pk on zonetable
-						$sql = "ALTER TABLE " . $table_prefix . 'bbdkp_zonetable' . " DROP PRIMARY KEY";
-						$db->sql_query($sql);
-	
-						// make new pk 
-						$sql= "ALTER TABLE " . $table_prefix . 'bbdkp_zonetable' . "  ADD PRIMARY KEY (game, id)";
-						$db->sql_query($sql);	
-
-						
-						// this will run once for the past installed game in bp 1.0
-						$games = array(
-					       'wow'        => $user->lang['WOW'], 
-					       'lotro'      => $user->lang['LOTRO'], 
-					       'eq'         => $user->lang['EQ'], 
-					       'daoc'       => $user->lang['DAOC'], 
-					       'vanguard'   => $user->lang['VANGUARD'],
-					       'eq2'        => $user->lang['EQ2'],
-					       'warhammer'  => $user->lang['WARHAMMER'],
-					       'aion'       => $user->lang['AION'],
-					       'FFXI'       => $user->lang['FFXI'],
-					    );
-					    
-						foreach($games as $gameid => $gamename)
-						{
-						    $sql = "select count(sequence) as installcheck from " . $table_prefix . "bbdkp_zonetable where game = '". $gameid ."'";
-							$result = $db->sql_query($sql);
-							$installed = ((int) $db->sql_fetchfield('installcheck') > 0) ? true: false;
-							$db->sql_freeresult($result);
-							if($installed)
-							{
-								$sql = "update " .  $table_prefix . "bbdkp_language set game_id = " . $gameid . " where attribute in ('boss', 'zone') "; 
-								$db->sql_query($sql);
-							}
-						}
-						break;
-						return array('command' => 'BOSSPROGRESS_INSTALL_MOD', 'result' => 'SUCCESS');
-			}
-			break;
-			
-	}
-	
 }
 
 /******************************
@@ -395,30 +290,22 @@ function Bossprogressupdater($action, $version)
 	{
 		case 'install' :
 		case 'update' :
-
-			switch ($version)
-			{
-			    // only run when upgrading to 1.0.5
-				case '1.0.5':
-		            $umil->table_row_remove($table_prefix . 'bbdkp_plugins',
-		                array('name'  => 'Bossprogress')
-		            );
-		                        
-					$umil->table_row_insert($table_prefix . 'bbdkp_plugins', 	
-				    array(
-		                array(
-		        				'name'  => 'Bossprogress', 
-		        				'value'  => '1', 
-		        				'version'  => $version, 								
-		        				'orginal_copyright'  => 'sz3', 				
-		        				'bbdkp_copyright'  => 'bbDKP Team', 
-		                    ),
-		            ));		
+            $umil->table_row_remove($table_prefix . 'bbdkp_plugins',
+                array('name'  => 'Bossprogress')
+            );
+                        
+			$umil->table_row_insert($table_prefix . 'bbdkp_plugins', 	
+		    array(
+                array(
+        				'name'  => 'Bossprogress', 
+        				'value'  => '1', 
+        				'version'  => $version, 								
+        				'orginal_copyright'  => 'bbDKP', 				
+        				'bbdkp_copyright'  => 'bbDKP Team', 
+                    ),
+            ));		
 		
-		       		return array('command' => 'BOSSPROGRESS_INSTALL_MOD', 'result' => 'SUCCESS');
-				break;
-			}
-			break; 
+       		return array('command' => 'BOSSPROGRESS_INSTALL_MOD', 'result' => 'SUCCESS');
 			
 		case 'uninstall' :
 			// Run this when uninstalling

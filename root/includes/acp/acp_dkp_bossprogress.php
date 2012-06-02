@@ -19,7 +19,7 @@ if (!defined('IN_PHPBB'))
 }
 if (! defined('EMED_BBDKP')) 
 {
-	$user->add_lang ( array ('mods/dkp_admin' ));
+	$user->add_lang ( array ('mods/dkp_admin'));
 	trigger_error ( $user->lang['BBDKPDISABLED'] , E_USER_WARNING );
 }
 
@@ -30,7 +30,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 	function main($id, $mode) 
 	{
 	    global $db, $user, $template, $config, $phpEx, $phpbb_admin_path, $cache, $phpbb_root_path;   
-        $user->add_lang(array('mods/dkp_admin','mods/dkp_common' ));   
+        $user->add_lang(array('mods/dkp_admin','mods/dkp_common',  'mods/dkp_bossprogress' ));   
 		
 		/*
 		 * list installed games

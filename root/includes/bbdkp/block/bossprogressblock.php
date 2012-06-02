@@ -12,7 +12,7 @@ if (! defined ( 'IN_PHPBB' ))
 	exit ();
 }
 $bpshow = false;
-$user->add_lang ( array ('mods/dkp_admin' ));
+$user->add_lang ( array ('mods/dkp_admin',  'mods/dkp_bossprogress' ));
 
 /*
  * installed games
