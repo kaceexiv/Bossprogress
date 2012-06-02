@@ -15,7 +15,7 @@ define('IN_INSTALL', true);
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : '../';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 include($phpbb_root_path . 'common.' . $phpEx);
-
+$user->add_lang ( array ('mods/dkp_admin', 'mods/dkp_common'));
 // Start session management
 $user->session_begin();
 $auth->acl($user->data);
@@ -76,6 +76,36 @@ $logo_img = 'install/logo.png';
 * The version numbering must otherwise be compatible with the version_compare function - http://php.net/manual/en/function.version-compare.php
 */
 
+/*
+ * including the gamefiles
+ */
+$games = array(
+	'wow'        => $user->lang['WOW'], 
+	'lotro'      => $user->lang['LOTRO'], 
+	'eq'         => $user->lang['EQ'], 
+	'daoc'       => $user->lang['DAOC'], 
+	'vanguard'   => $user->lang['VANGUARD'],
+	'eq2'        => $user->lang['EQ2'],
+	'warhammer'  => $user->lang['WARHAMMER'],
+	'aion'       => $user->lang['AION'],
+	'FFXI'       => $user->lang['FFXI'],
+	'rift'       => $user->lang['RIFT'],
+	'swtor'      => $user->lang['SWTOR'],
+	'lineage2'   => $user->lang['LINEAGE2'],
+);
+
+include($phpbb_root_path .'install/bossinstall/install_aion.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_daoc.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_eq.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_eq2.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_ffxi.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_lotro.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_vanguard.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_warhammer.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_wow.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_rift.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_swtor.' . $phpEx);
+include($phpbb_root_path .'install/bossinstall/install_lineage2.' . $phpEx);
 
 $versions = array(
     '1.0.5'    => array(
@@ -146,14 +176,18 @@ $versions = array(
             	 'modes'           => array('bossprogress', 'zoneprogress' ),
          		)),
          		
-          ),        
+          ),
+
+ 		'custom' => array(  
+     		'gameinstall',         
+       	),           
 
      ),
     
 		'1.0.6'    => array(
 			// version update
-			 'custom' => array(  
-     		'gameinstall',         
+			'custom' => array(
+     		'gameinstall',     
             'Bossprogressupdater',
        	), 
        ), 
@@ -188,104 +222,89 @@ function bbdkp_caches($action, $version)
  */
 function gameinstall($action, $version)
 {
-	global $db, $table_prefix, $umil, $config, $phpbb_root_path, $user, $phpEx; 
+	global $db, $table_prefix, $config;
+	global $games; 
 	// include required sub installers
 	switch ($action)
 	{
 		case 'install' :
 		case 'update' :
-			$games = array(
-	         'wow'        => $user->lang['WOW'], 
-	         'lotro'      => $user->lang['LOTRO'], 
-	         'eq'         => $user->lang['EQ'], 
-	         'daoc'       => $user->lang['DAOC'], 
-	         'vanguard'   => $user->lang['VANGUARD'],
-	         'eq2'        => $user->lang['EQ2'],
-	         'warhammer'  => $user->lang['WARHAMMER'],
-	         'aion'       => $user->lang['AION'],
-	         'FFXI'       => $user->lang['FFXI'],
-	     	 'rift'       => $user->lang['RIFT'],
-	     	 'swtor'      => $user->lang['SWTOR']
-		     );
-		     
-
-			foreach($games as $gameid => $gamename)
+			switch ($version)
 			{
-				if ($config['bbdkp_games_' . $gameid] == 1)
-				{
-					switch ($gameid)
+				case '1.0.5':	
+					foreach($games as $gameid => $gamename)
 					{
-						case 'aion':
-							include($phpbb_root_path .'install/gamesinstall/install_aion.' . $phpEx);
-							install_aion($action, $version);
-							break;
-						case 'daoc':
-							include($phpbb_root_path .'install/gamesinstall/install_daoc.' . $phpEx);
-							install_daoc($action, $version);
-							break;
-						case 'eq':
-							include($phpbb_root_path .'install/gamesinstall/install_eq.' . $phpEx);
-							install_eq($action, $version);
-							break;
-						case 'eq2':
-							include($phpbb_root_path .'install/gamesinstall/install_eq2.' . $phpEx);
-							install_eq2($action, $version);
-							break;
-						case 'FFXI':
-							include($phpbb_root_path .'install/gamesinstall/install_ffxi.' . $phpEx);
-							install_ffxi($action, $version);
-							break;
-						case 'lotro':
-							include($phpbb_root_path .'install/gamesinstall/install_lotro.' . $phpEx);
-							install_lotro($action, $version);
-							break;
-						case 'vanguard':
-							include($phpbb_root_path .'install/gamesinstall/install_vanguard.' . $phpEx);
-							install_vanguard($action, $version);
-							break;
-						case 'wow':
-							include($phpbb_root_path .'install/gamesinstall/install_wow.' . $phpEx);
-							install_wow($action, $version);
-							break;
-						case 'warhammer':
-							include($phpbb_root_path .'install/gamesinstall/install_warhammer.' . $phpEx);
-							install_warhammer($action, $version);
-							break;
-						case 'rift':
-							include($phpbb_root_path .'install/gamesinstall/install_rift.' . $phpEx);
-							install_rift($action, $version);
-							break;
-						case 'swtor':
-							include($phpbb_root_path .'install/gamesinstall/install_swtor.' . $phpEx);
-							install_swtor($action, $version);
-							break;
+						if ($config['bbdkp_games_' . $gameid] == 1)
+						{
+							switch ($gameid)
+							{
+								case 'aion':
+									install_aion($action, $version);
+									break;
+								case 'daoc':
+									install_daoc($action, $version);
+									break;
+								case 'eq':
+									install_eq($action, $version);
+									break;
+								case 'eq2':
+									install_eq2($action, $version);
+									break;
+								case 'FFXI':
+									install_ffxi($action, $version);
+									break;
+								case 'lotro':
+									install_lotro($action, $version);
+									break;
+								case 'vanguard':
+									install_vanguard($action, $version);
+									break;
+								case 'wow':
+									install_wow($action, $version);
+									break;
+								case 'warhammer':
+									install_warhammer($action, $version);
+									break;
+								case 'rift':
+									install_rift($action, $version);
+									break;
+								case 'swtor':
+									install_swtor($action, $version);
+									break;
+							}
+						}
 					}
-				}
+					
+					$db->sql_query ( 'update ' . $table_prefix . 'bbdkp_zonetable  set sequence = id '  );
+					return array('command' => 'BOSSPROGRESS_INSTALL_MOD', 'result' => 'SUCCESS');
+					break;
+					
+				case '1.0.6':
+					if ($config['bbdkp_games_wow'] == 1)
+					{
+						update_wow_ds($action, $version);
+					}
+					break;
+					
 			}
-			
-			$db->sql_query ( 'update ' . $table_prefix . 'bbdkp_zonetable  set sequence = id '  );
-			
-			return array('command' => 'BOSSPROGRESS_INSTALL_MOD', 'result' => 'SUCCESS');
-			
 			break;
-			case 'uninstall' :
-				// remove content
-				$sql = 'DELETE FROM ' . $table_prefix . "bbdkp_language where attribute in ('boss', 'zone') ";
-				$db->sql_query($sql);
-				$sql = 'TRUNCATE TABLE ' . $table_prefix . "bbdkp_bosstable";
-				$db->sql_query($sql);
-				$sql = 'TRUNCATE TABLE ' . $table_prefix . "bbdkp_zonetable ";
-				$db->sql_query($sql);
-				return array('command' => 'BOSSPROGRESS_UNINSTALL_MOD', 'result' => 'SUCCESS');
-				
-				
+			
+		case 'uninstall' :
+			// remove content
+			$sql = 'DELETE FROM ' . $table_prefix . "bbdkp_language where attribute in ('boss', 'zone') ";
+			$db->sql_query($sql);
+			$sql = 'TRUNCATE TABLE ' . $table_prefix . "bbdkp_bosstable";
+			$db->sql_query($sql);
+			$sql = 'TRUNCATE TABLE ' . $table_prefix . "bbdkp_zonetable ";
+			$db->sql_query($sql);
+			return array('command' => 'BOSSPROGRESS_UNINSTALL_MOD', 'result' => 'SUCCESS');
 	}		
 			
 }
 
 function Bossprogressupdater($action, $version)
 {
-	global $db, $table_prefix, $umil, $phpbb_root_path, $phpEx;
+	global $table_prefix, $umil;
 	switch ($action)
 	{
 		case 'install' :
@@ -315,7 +334,6 @@ function Bossprogressupdater($action, $version)
             
 			return array('command' => 'BOSSPROGRESS_UNINSTALL_MOD', 'result' => 'SUCCESS');
 			break;
-	
 	}
 }
 

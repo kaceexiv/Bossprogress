@@ -1541,4 +1541,267 @@ function install_wow()
 		unset ( $sql_ary );
 	}
 }
+
+
+/**
+ * installer for tier 12 firelands raid instance
+ *
+ */
+function update_wow_fl()
+{
+	//@todo
+}
+
+/**
+ * installer for tier 13 Dragon soul raid instance
+ *
+ */
+function update_wow_ds()
+{
+	
+	global $db, $table_prefix, $umil, $user;
+    $sql = "select count(imagename) as installcheck from " . $table_prefix . "bbdkp_zonetable where game = 'wow' and imagename like ('dragonsoul%') ";
+	$result = $db->sql_query($sql);
+	$installed = ((int) $db->sql_fetchfield('installcheck') > 0) ? true: false;
+	$db->sql_freeresult($result);
+
+	
+	if($installed)
+	{
+		// don't override existing data
+		return;
+	}
+	else
+	{	
+		
+		// hide other zones
+		$sql = 'UPDATE ' . $table_prefix . "bbdkp_zonetable SET  showzone = 0 , showzoneportal = 0 where game = 'wow'";
+		$db->sql_query($sql);
+		 
+		//find highest slot 
+		$sql = "select max(sequence) as maxseq from " . $table_prefix . "bbdkp_zonetable where game = 'wow' ";
+		$result = $db->sql_query($sql);
+		$maxseq = ((int) $db->sql_fetchfield('maxseq'));	
+		$db->sql_freeresult($result);
+		
+		// find highest id
+		unset ( $sql_ary );
+		$sql = "select max(id) as maxid from " . $table_prefix . "bbdkp_zonetable where game = 'wow' ";
+		$result = $db->sql_query($sql);
+		$maxzoneid = ((int) $db->sql_fetchfield('maxid'));	
+		$db->sql_freeresult($result);	
+		
+		// insert new zones
+		$sql_ary = array ();
+		$sql_ary[] = array( 'id' => $maxzoneid+1 , 'imagename' =>  'dragonsoul10' , 'game' =>  'wow' ,  'tier' =>  'T13' ,  'completed' =>  '0' ,  'completedate' =>  '0' ,  'webid' =>  '5892' ,  'showzone' =>  1, 'showzoneportal' => 1, 'sequence' => $maxseq+1);
+		$sql_ary[] = array( 'id' => $maxzoneid+2 , 'imagename' =>  'dragonsoulh10' , 'game' =>  'wow' ,  'tier' =>  'T13' ,  'completed' =>  '0' ,  'completedate' =>  '0' ,  'webid' =>  '5892' ,  'showzone' =>  1, 'showzoneportal' => 1, 'sequence' => $maxseq+2);
+		$sql_ary[] = array( 'id' => $maxzoneid+3 , 'imagename' =>  'dragonsoul25' , 'game' =>  'wow' ,  'tier' =>  'T13' ,  'completed' =>  '0' ,  'completedate' =>  '0' ,  'webid' =>  '5892' ,  'showzone' =>  1, 'showzoneportal' => 1, 'sequence' => $maxseq+3);
+		$sql_ary[] = array( 'id' => $maxzoneid+4 , 'imagename' =>  'dragonsoulh25' , 'game' =>  'wow' ,  'tier' =>  'T13' ,  'completed' =>  '0' ,  'completedate' =>  '0' ,  'webid' =>  '5892' ,  'showzone' =>  1, 'showzoneportal' => 1, 'sequence' => $maxseq+4);
+		$db->sql_multi_insert ($table_prefix . 'bbdkp_zonetable', $sql_ary );
+		
+		// find highest boss id 
+		unset ( $sql_ary );
+		$sql = "select max(id) as maxbossid from " . $table_prefix . "bbdkp_bosstable where game = 'wow' ";
+		$result = $db->sql_query($sql);
+		$maxid = ((int) $db->sql_fetchfield('maxbossid'));	
+		$db->sql_freeresult($result);	
+
+		// insert new bosses 
+		$sql_ary[] = array('id' => $maxid+1, 'imagename' => 'morchok' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '55265' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+2, 'imagename' => 'zonozz' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '55308' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+3, 'imagename' => 'yorsahj' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '55312' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+4, 'imagename' => 'hagara' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '55689' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+5, 'imagename' => 'ultraxion' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '55294' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+6, 'imagename' => 'blackhorn' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '56427' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+7, 'imagename' => 'spinedeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '53879' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+8, 'imagename' => 'madnessdeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+1 , 'type' =>  'npc'  , 'webid' =>  '56173' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+	
+		$sql_ary[] = array('id' => $maxid+9, 'imagename' => 'morchok' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '55265' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+10, 'imagename' => 'zonozz' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '55308' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+11, 'imagename' => 'yorsahj' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '55312' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+12, 'imagename' => 'hagara' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '55689' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+13, 'imagename' => 'ultraxion' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '55294' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+14, 'imagename' => 'blackhorn' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '56427' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+15, 'imagename' => 'spinedeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '53879' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+16, 'imagename' => 'madnessdeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '56173' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+
+		$sql_ary[] = array('id' => $maxid+17, 'imagename' => 'morchok' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '55265' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+18, 'imagename' => 'zonozz' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '55308' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+19, 'imagename' => 'yorsahj' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '55312' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+20, 'imagename' => 'hagara' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '55689' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+21, 'imagename' => 'ultraxion' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '55294' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+22, 'imagename' => 'blackhorn' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '56427' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' => 1  );
+		$sql_ary[] = array('id' => $maxid+23, 'imagename' => 'spinedeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '53879' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+24, 'imagename' => 'madnessdeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '56173' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' => 1 );
+	
+		$sql_ary[] = array('id' => $maxid+25, 'imagename' => 'morchok' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '55265' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+26, 'imagename' => 'zonozz' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '55308' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+27, 'imagename' => 'yorsahj' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '55312' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+28, 'imagename' => 'hagara' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '55689' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+		$sql_ary[] = array('id' => $maxid+29, 'imagename' => 'ultraxion' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '55294' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+30, 'imagename' => 'blackhorn' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '56427' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+31, 'imagename' => 'spinedeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '53879' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+32, 'imagename' => 'madnessdeathwing' , 'game' => 'wow' , 'zoneid' => $maxzoneid+4 , 'type' =>  'npc'  , 'webid' =>  '56173' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
+	
+		$db->sql_multi_insert ( $table_prefix . 'bbdkp_bosstable', $sql_ary );
+		
+		// insert new language table values 
+		unset ( $sql_ary );
+		// zones
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+1, 'language' =>  'en' , 'attribute' =>  'zone' , 'name' =>  'Dragon Soul (10)' ,  'name_short' =>  'DS 10' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+2, 'language' =>  'en' , 'attribute' =>  'zone' , 'name' =>  'Dragon Soul (10HM)' ,  'name_short' =>  'DS 10HM' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+3, 'language' =>  'en' , 'attribute' =>  'zone' , 'name' =>  'Dragon Soul (25)' ,  'name_short' =>  'DS 25' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+4, 'language' =>  'en' , 'attribute' =>  'zone' , 'name' =>  'Dragon Soul (25HM)' ,  'name_short' =>  'DS 25HM' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+1, 'language' =>  'fr' , 'attribute' =>  'zone' , 'name' =>  'L’Âme des dragons (10)' ,  'name_short' =>  'DS 10' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+2, 'language' =>  'fr' , 'attribute' =>  'zone' , 'name' =>  'L’Âme des dragons (10HM)' ,  'name_short' =>  'DS 10HM' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+3, 'language' =>  'fr' , 'attribute' =>  'zone' , 'name' =>  'L’Âme des dragons (25)' ,  'name_short' =>  'DS 25' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+4, 'language' =>  'fr' , 'attribute' =>  'zone' , 'name' =>  'L’Âme des dragons (25HM)' ,  'name_short' =>  'DS 25HM' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+1, 'language' =>  'de' , 'attribute' =>  'zone' , 'name' =>  'Drachenseele (10)' ,  'name_short' =>  'DS 10' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+2, 'language' =>  'de' , 'attribute' =>  'zone' , 'name' =>  'Drachenseele (10HM)' ,  'name_short' =>  'DS 10HM' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+3, 'language' =>  'de' , 'attribute' =>  'zone' , 'name' =>  'Drachenseele (25)' ,  'name_short' =>  'DS 25' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxzoneid+4, 'language' =>  'de' , 'attribute' =>  'zone' , 'name' =>  'Drachenseele (25HM)' ,  'name_short' =>  'DS 25HM' );
+
+		$db->sql_multi_insert ( $table_prefix . 'bbdkp_language', $sql_ary );
+		unset ( $sql_ary );
+		
+		//Morchokk
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+1, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10)' ,  'name_short' =>  'Morchok (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+9, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10HM)' ,  'name_short' =>  'Morchok (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+17, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25)' ,  'name_short' =>  'Morchok (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+25, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25HM)' ,  'name_short' =>  'Morchok (25HM)' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+1, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10)' ,  'name_short' =>  'Morchok (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+9, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10HM)' ,  'name_short' =>  'Morchok (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+17, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25)' ,  'name_short' =>  'Morchok (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+25, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25HM)' ,  'name_short' =>  'Morchok (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+1, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10)' ,  'name_short' =>  'Morchok (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+9, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Morchok (10HM)' ,  'name_short' =>  'Morchok (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+17, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25)' ,  'name_short' =>  'Morchok (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+25, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Morchok (25HM)' ,  'name_short' =>  'Morchok (25HM)' );
+		
+		//Zon‘ozz
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+2, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warlord Zon’ozz (10)' ,  'name_short' =>  'Zon’ozz (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+10, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warlord Zon’ozz (10HM)' ,  'name_short' =>  'Zon’ozz (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+18, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warlord Zon’ozz (25)' ,  'name_short' =>  'Zon’ozz (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+26, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warlord Zon’ozz (25HM)' ,  'name_short' =>  'Zon’ozz (25HM)' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+2, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Seigneur de guerre Zon’ozz  (10)' ,  'name_short' =>  'Zon’ozz (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+10, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Seigneur de guerre Zon’ozz  (10HM)' ,  'name_short' =>  'Zon’ozz (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+18, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Seigneur de guerre Zon’ozz  (25)' ,  'name_short' =>  'Zon’ozz (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+26, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Seigneur de guerre Zon’ozz  (25HM)' ,  'name_short' =>  'Zon’ozz (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+2, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsherr Zon‘ozz  (10)' ,  'name_short' =>  'Zon‘ozz (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+10, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsherr Zon‘ozz  (10HM)' ,  'name_short' =>  'Zon‘ozz (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+18, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsherr Zon‘ozz  (25)' ,  'name_short' =>  'Zon‘ozz (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+26, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsherr Zon‘ozz  (25HM)' ,  'name_short' =>  'Zon‘ozz (25HM)' );
+		
+		//Yor'sahj the Unsleeping 
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+3, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj the Unsleeping (10)' ,  'name_short' =>  'Yor’sahj (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+11, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj the Unsleeping (10HM)' ,  'name_short' =>  'Yor’sahj (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+19, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj the Unsleeping (25)' ,  'name_short' =>  'Yor’sahj (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+27, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj the Unsleeping (25HM)' ,  'name_short' =>  'Yor’sahj (25HM)' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+3, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj l’Insomniaque (10)' ,  'name_short' =>  'Yor’sahj  (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+11, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj l’Insomniaque (10HM)' ,  'name_short' =>  'Yor’sahj (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+19, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj l’Insomniaque (25)' ,  'name_short' =>  'Yor’sahj (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+27, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj l’Insomniaque (25HM)' ,  'name_short' =>  'Yor’sahj (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+3, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj der Unermüdliche (10)' ,  'name_short' =>  'Yor’sahj (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+11, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj der Unermüdliche (10HM)' ,  'name_short' =>  'Yor’sahj (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+19, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj der Unermüdliche (25)' ,  'name_short' =>  'Yor’sahj (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+27, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Yor’sahj der Unermüdliche (25HM)' ,  'name_short' =>  'Yor’sahj (25HM)' );
+		
+		//Hagara la Lieuse des tempêtes 
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+4, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Hagara the Stormbinder (10)' ,  'name_short' =>  'Hagara (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+12, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Hagara the Stormbinder (10HM)' ,  'name_short' =>  'Hagara (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+20, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Hagara the Stormbinder (25)' ,  'name_short' =>  'Hagara (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+28, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Hagara the Stormbinder (25HM)' ,  'name_short' =>  'Hagara (25HM)' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+4, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Hagara la Lieuse des tempêtes (10)' ,  'name_short' =>  'Hagara  (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+12, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Hagara la Lieuse des tempêtes (10HM)' ,  'name_short' =>  'Hagara (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+20, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Hagara la Lieuse des tempêtes (25)' ,  'name_short' =>  'Hagara (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+28, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Hagara la Lieuse des tempêtes (25HM)' ,  'name_short' =>  'Hagara (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+4, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Hagara die Sturmbinderin (10)' ,  'name_short' =>  'Hagara (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+12, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Hagara die Sturmbinderin (10HM)' ,  'name_short' =>  'Hagara (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+20, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Hagara die Sturmbinderin (25)' ,  'name_short' =>  'Hagara (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+28, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Hagara die Sturmbinderin (25HM)' ,  'name_short' =>  'Hagara (25HM)' );
+
+		//Ultraxion
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+5, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10)' ,  'name_short' =>  'Ultraxion (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+13, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10HM)' ,  'name_short' =>  'Ultraxion (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+21, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25)' ,  'name_short' =>  'Ultraxion (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+29, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25HM)' ,  'name_short' =>  'Ultraxion (25HM)' );
+
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+5, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10)' ,  'name_short' =>  'Ultraxion  (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+13, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10HM)' ,  'name_short' =>  'Ultraxion (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+21, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25)' ,  'name_short' =>  'Ultraxion (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+29, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25HM)' ,  'name_short' =>  'Ultraxion (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+5, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10)' ,  'name_short' =>  'Ultraxion (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+13, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (10HM)' ,  'name_short' =>  'Ultraxion (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+21, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25)' ,  'name_short' =>  'Ultraxion (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+29, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Ultraxion (25HM)' ,  'name_short' =>  'Ultraxion (25HM)' );		
+		
+		// Warmaster Blackhorn
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+6, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warmaster Blackhorn (10)' ,  'name_short' =>  'Blackhorn (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+14, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warmaster Blackhorn (10HM)' ,  'name_short' =>  'Blackhorn (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+22, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warmaster Blackhorn (25)' ,  'name_short' =>  'Blackhorn (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+30, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Warmaster Blackhorn (25HM)' ,  'name_short' =>  'Blackhorn (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+6, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Maître de guerre Corne-Noire (10)' ,  'name_short' =>  'Corne-Noire (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+14, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Maître de guerre Corne-Noire (10HM)' ,  'name_short' =>  'Corne-Noire (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+22, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Maître de guerre Corne-Noire (25)' ,  'name_short' =>  'Corne-Noire (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+30, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Maître de guerre Corne-Noire (25HM)' ,  'name_short' =>  'Corne-Noire (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+6, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsmeister Schwarzhorn (10)' ,  'name_short' =>  'Schwarzhorn (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+14, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsmeister Schwarzhorn (10HM)' ,  'name_short' =>  'Schwarzhorn (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+22, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsmeister Schwarzhorn (25)' ,  'name_short' =>  'Schwarzhorn (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+30, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Kriegsmeister Schwarzhorn (25HM)' ,  'name_short' =>  'Schwarzhorn (25HM)' );
+
+		
+		// Spine of Deathwing
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+7, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Spine of Deathwing (10)' ,  'name_short' =>  'Blackhorn (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+15, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Spine of Deathwing (10HM)' ,  'name_short' =>  'Blackhorn (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+23, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Spine of Deathwing (25)' ,  'name_short' =>  'Blackhorn (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+31, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Spine of Deathwing (25HM)' ,  'name_short' =>  'Blackhorn (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+7, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Échine d’Aile de mort (10)' ,  'name_short' =>  'Échine (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+15, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Échine d’Aile de mort (10HM)' ,  'name_short' =>  'Échine (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+23, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Échine d’Aile de mort (25)' ,  'name_short' =>  'Échine (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+31, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Échine d’Aile de mort (25HM)' ,  'name_short' =>  'Échine (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+7, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Rückgrat (10)' ,  'name_short' =>  'Rückgrat (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+15, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Rückgrat (10HM)' ,  'name_short' =>  'Rückgrat (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+23, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Rückgrat (25)' ,  'name_short' =>  'Rückgrat (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+31, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Rückgrat (25HM)' ,  'name_short' =>  'Rückgrat (25HM)' );
+
+		//Madness of Deathwing LAST BOSS OF CATACLYSM
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+8, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Madness of Deathwing (10)' ,  'name_short' =>  'Madness (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+16, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Madness of Deathwing (10HM)' ,  'name_short' =>  'Madness (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+24, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Madness of Deathwing (25)' ,  'name_short' =>  'Madness (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+32, 'language' =>  'en' , 'attribute' =>  'boss' , 'name' =>  'Madness of Deathwing (25HM)' ,  'name_short' =>  'Madness (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+8, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Folie d’Aile de mort (10)' ,  'name_short' =>  'Folie (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+16, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Folie d’Aile de mort (10HM)' ,  'name_short' =>  'Folie (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+24, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Folie d’Aile de mort (25)' ,  'name_short' =>  'Folie (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+32, 'language' =>  'fr' , 'attribute' =>  'boss' , 'name' =>  'Folie d’Aile de mort (25HM)' ,  'name_short' =>  'Folie (25HM)' );
+		
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+8, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Wahnsinn (10)' ,  'name_short' =>  'Wahnsinn (10)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+16, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Wahnsinn (10HM)' ,  'name_short' =>  'Wahnsinn (10HM)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+24, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Wahnsinn (25)' ,  'name_short' =>  'Wahnsinn (25)' );
+		$sql_ary[] = array( 'game_id' => 'wow', 'attribute_id'  => $maxid+32, 'language' =>  'de' , 'attribute' =>  'boss' , 'name' =>  'Todesschwinges Wahnsinn (25HM)' ,  'name_short' =>  'Wahnsinn (25HM)' );
+		
+		$db->sql_multi_insert ( $table_prefix . 'bbdkp_language', $sql_ary );
+		unset ( $sql_ary );
+		
+	}		
+}
+
+
+
+
 ?>
