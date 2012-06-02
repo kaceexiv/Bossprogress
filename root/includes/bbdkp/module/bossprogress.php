@@ -19,7 +19,7 @@ if ( !defined('IN_PHPBB') OR !defined('IN_BBDKP') )
 	exit;
 }
 
-
+$user->add_lang ( array ('mods/dkp_bossprogress' ));
 /*
  * installed games
  */
