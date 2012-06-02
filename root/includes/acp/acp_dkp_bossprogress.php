@@ -418,11 +418,43 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						// again if the boss is marked as not killed, unmark its zone as completed
 						if( ! isset ($_POST ['bosskilled'][$key])  )
 						{
-							$sql = 'UPDATE ' . ZONEBASE . ' z , ' . BOSSBASE . " b 
-									SET z.completed = 0 
-									WHERE z.id=b.zoneid 
-									AND b.game = z.game and b.game = '". $game_id ."'
-									AND b.id = " . $key;	
+							switch ($db->sql_layer)
+							{
+									case 'mysqli':
+									case 'mysql4':
+									case 'mysql':
+										$sql = 'UPDATE ' . ZONEBASE . ' z , ' . BOSSBASE . " b 
+												SET z.completed = 0 
+												WHERE z.id=b.zoneid 
+												AND b.game = z.game and b.game = '". $game_id ."'
+												AND b.id = " . $key;	
+										break;
+									case 'postgres':
+										$sql = 'UPDATE ' . ZONEBASE . '  
+												SET completed = 0 
+												FROM ' . BOSSBASE . '  
+												WHERE ' . ZONEBASE . '.id=' . BOSSBASE . '.zoneid AND ' . BOSSBASE . '.game = ' . ZONEBASE . '.game and ' . BOSSBASE . ".game = '". $game_id ."'
+												AND " . BOSSBASE . '.id = ' . $key;	
+										break;
+									case 'mssql':
+									case 'mssql_odbc':
+									case 'mssqlnative':
+										$sql = 'UPDATE ' . ZONEBASE . ' z 
+												SET z.completed = 0 
+												FROM ' . BOSSBASE . " b 
+												INNER JOIN z.id=b.zoneid 
+												WHEREb.game = z.game and b.game = '". $game_id ."'
+												AND b.id = " . $key;	
+										break;
+									case 'oracle':
+										$sql = 'UPDATE 
+												( SELECT z.completed 
+												FROM ' . ZONEBASE . ' z 
+												INNER JOIN ' . BOSSBASE . " b ON z.id=b.zoneid AND b.game = z.game 
+												WHERE b.game = '". $game_id ."' AND b.id = " . $key . ' ) t	
+												SET t.completed = 0 ';
+										break;									
+							}
 							$db->sql_query($sql);	
 						}
 						
