@@ -194,7 +194,7 @@ function displaygame($game_id, $game_name)
 		// number of bosskills
 		$zones[$i]['bosskills'] = $bosskill; 
 		// percentage done
-		$zones[$i]['completed'] = ($j>0) ? round($bosskill/$j)*100 : 0;
+		$zones[$i]['completed'] = ($j>0) ? round($bosskill/$j*100) : 0;
 	 	unset ($boss);
 		$i++;
 		$db->sql_freeresult ($result2);
