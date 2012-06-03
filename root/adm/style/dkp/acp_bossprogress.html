@@ -18,8 +18,11 @@
 	</dl>
 	<dl>
 		<dt><label for="boss_image">{L_BOSS_IMAGENAME}:</label><br /><span>{L_BOSS_IMAGENAME_EXPLAIN}</span></dt>
-		<dd><input name="boss_image" type="text" id="boss_image" maxlength="255" value="{BOSS_IMAGENAME}"  /></dd>
+		<dd><input name="boss_image" type="text" id="boss_image" maxlength="255" value="{BOSS_IMAGENAME}"  />
+		<br />
 		<img src="{BOSS_IMAGE_COLOR}" alt="{BOSS_IMAGENAME}" /><img src="{BOSS_IMAGE_BW}" alt="{BOSS_IMAGENAME}" />
+		</dd>
+		
 	</dl>
 	<dl>
 		<dt><label for="boss_type">{L_BOSS_TYPE}:</label><br /><span>{L_BOSS_TYPE_EXPLAIN}</span></dt>
@@ -35,18 +38,19 @@
 	</dl>
 	<dl>
 		<dt><label for="boss_completed">{L_BOSS_COMPLETED}:</label><br /><span>{L_BOSS_COMPLETED_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="boss_completed" value="1"  {BOSS_KILLED}/>
+		<dd>&nbsp;<input type="checkbox" name="boss_completed" id="boss_completed" value="1"  {BOSS_KILLED}/></dd>
 	</dl>
 	<dl>
-		<dt><label for="boss_killdate">{L_BOSS_COMPLETEDATE}:</label><br /><span>{L_BOSS_COMPLETEDATE_EXPLAIN}</span></dt>
+		<dt><label for="boss_killdate_day">{L_BOSS_COMPLETEDATE}:</label><br /><span>{L_BOSS_COMPLETEDATE_EXPLAIN}</span></dt>
 		<dd>
-		 {L_DAY}: <select id="boss_killdate" name="boss_killdate_day">{S_KILLDATE_DAY_OPTIONS}</select>
+		 {L_DAY}: <select id="boss_killdate_day" name="boss_killdate_day">{S_KILLDATE_DAY_OPTIONS}</select>
 		 {L_MONTH}: <select name="boss_killdate_month">{S_KILLDATE_MONTH_OPTIONS}</select> 
-		 {L_YEAR}: <select name="boss_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select></dd>
+		 {L_YEAR}: <select name="boss_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select>
+		 </dd>
 	</dl>
 	<dl>
 		<dt><label for="boss_show">{L_BOSS_SHOW}:</label><br /><span>{L_BOSS_SHOW_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="boss_show" value="1" {BOSS_SHOW}/>
+		<dd>&nbsp;<input type="checkbox" id="boss_show" name="boss_show" value="1" {BOSS_SHOW}/></dd>
 	</dl>
 
 	<p class="submit-buttons">
