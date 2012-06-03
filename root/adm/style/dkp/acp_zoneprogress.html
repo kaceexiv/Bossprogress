@@ -1,7 +1,4 @@
 <!-- INCLUDE overall_header.html -->
-<!--
-		$Id$
-//-->
 <!-- IF S_ADD -->
 	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
 
@@ -21,10 +18,14 @@
 	</dl>
 	<dl>
 		<dt><label for="zone_image">{L_ZONE_IMAGENAME}:</label><br /><span>{L_XZONE_IMAGENAME_EXPLAIN}</span></dt>
-		<dd><input name="zone_image" type="text" id="zone_image" maxlength="255" value= "{ZONE_IMAGENAME}"/></dd>
-		<img src="{ZONE_IMAGE_COLOR}" alt="{ZONE_IMAGENAME}" /><br />
-		<img src="{ZONE_IMAGE_SEPIA}" alt="{ZONE_IMAGENAME}" /><br />
-		<img src="{ZONE_IMAGE_SW}" alt="{ZONE_IMAGENAME}" />
+		<dd><input name="zone_image" type="text" id="zone_image" maxlength="255" value= "{ZONE_IMAGENAME}"/>
+		<br />
+		<span>
+		<img src="{ZONE_IMAGE_COLOR}" alt="{ZONE_IMAGENAME}" width="70%" height="70%"/><br />
+		<img src="{ZONE_IMAGE_SEPIA}" alt="{ZONE_IMAGENAME}"  width="70%" height="70%"/><br />
+		<img src="{ZONE_IMAGE_SW}" alt="{ZONE_IMAGENAME}"  width="70%" height="70%"/>
+		</span>
+		</dd>
 	</dl>
 	<dl>
 		<dt><label for="zone_webid">{L_ZONE_WEBID}:</label><br /><span>{L_ZONE_WEBID_EXPLAIN}</span></dt>
@@ -36,22 +37,23 @@
 	</dl>
 	<dl>
 		<dt><label for="zone_completed">{L_ZONE_COMPLETED}:</label><br /><span>{L_ZONE_COMPLETED_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="zone_completed" value="1" {ZONE_COMPLETED} />
+		<dd>&nbsp;<input type="checkbox" id="zone_completed" name="zone_completed" value="1" {ZONE_COMPLETED} /> </dd>
 	</dl>
 	<dl>
 		<dt><label for="zone_killdate">{L_ZONE_COMPLETEDATE}:</label><br /><span>{L_ZONE_COMPLETEDATE_EXPLAIN}</span></dt>
 		<dd>
 		 {L_DAY}: <select id="zone_killdate" name="zone_killdate_day">{S_KILLDATE_DAY_OPTIONS}</select>
 		 {L_MONTH}: <select name="zone_killdate_month">{S_KILLDATE_MONTH_OPTIONS}</select> 
-		 {L_YEAR}: <select name="zone_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select></dd>
+		 {L_YEAR}: <select name="zone_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select>
+		 </dd>
 	</dl>
 	<dl>
 		<dt><label for="showzone">{L_SHOW_ZONE}:</label><br /><span>{L_SHOW_ZONE_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="showzone" value="1" {SHOW_ZONE} />
+		<dd>&nbsp;<input type="checkbox" id="showzone" name="showzone" value="1" {SHOW_ZONE} /></dd>
 	</dl>
 	<dl>
 		<dt><label for="showzoneportal">{L_SHOW_ZONE_PORTAL}:</label><br /><span>{L_SHOW_ZONE_PORTAL_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="showzoneportal" value="1" {SHOW_ZONE_PORTAL} />
+		<dd>&nbsp;<input type="checkbox" id="showzoneportal" name="showzoneportal" value="1" {SHOW_ZONE_PORTAL} /></dd>
 	</dl>
 	
 	<p class="submit-buttons">
@@ -64,14 +66,13 @@
 	</fieldset>
 	</form>
 
-
 <!-- ELSE -->
 
 <h1>{L_RP_ZONE}</h1>
 <p>{L_RP_ZONE_EXPLAIN}</p>
 
-<form method="post" action="{F_CONFIG}" name="acp_zoneprogress_list">
-
+<form method="post" action="{F_CONFIG}" id="acp_zoneprogress_list">
+<div>
 <select name="displaygame" class="input" onchange="javascript:form.submit();">
     <!-- BEGIN game_row -->
     <option value="{game_row.VALUE}"{game_row.SELECTED}>{game_row.OPTION}</option>
@@ -83,8 +84,8 @@
 		<th align="center" colspan="2">{L_GENERAL}</th>
 	</tr>
 	<tr>
-		<td width="60%" class="row2">{L_HEADERTYPE}</td>
-		<td width="40%" class="row1"><select size="1" name="headertype">
+		<td style="width:60%" class="row2">{L_HEADERTYPE}</td>
+		<td style="width:40%" class="row1"><select size="1" name="headertype">
 			<option value="0"{HEADER_SEL_OLDPHOTO}>{L_OLDPHOTO}</option>
 			<option value="1"{HEADER_SEL_BW}>{L_BLUE}</option>
 			<option value="2"{HEADER_SEL_NONE}>{L_NONE}</option>
@@ -100,81 +101,81 @@
 	</tr>
 
 	<tr>
-		<td width="70%" class="row2">{L_SHOWZONEPROGRESS}</td>
-		<td width="30%" class="row1"><input type="checkbox"	name="zoneprogress" value="1" {BP_SHOWSB} /></td>
+		<td  style="width:70%" class="row2">{L_SHOWZONEPROGRESS}</td>
+		<td  style="width:30%" class="row1"><input type="checkbox"	name="zoneprogress" value="1" {BP_SHOWSB} /></td>
 	</tr>
 	<tr>
-		<td width="70%" class="row2">{L_HIDENEWZONE}</td>
-		<td width="30%" class="row1"><input type="checkbox"	name="hidenewzone" value="1" {BP_HIDENEWZONE} /></td>
+		<td  style="width:70%" class="row2">{L_HIDENEWZONE}</td>
+		<td  style="width:30%" class="row1"><input type="checkbox"	name="hidenewzone" value="1" {BP_HIDENEWZONE} /></td>
 	</tr>
 	
 	<tr>
-		<td width="70%" class="row2">{L_BLOCKSHOWPROGRESSBAR}</td>
-		<td width="30%" class="row1"><input type="checkbox"	name="blockprogressbar" value="1" {BP_BLOCKSHOWPROGRESSBAR} /></td>
+		<td  style="width:70%" class="row2">{L_BLOCKSHOWPROGRESSBAR}</td>
+		<td  style="width:30%" class="row1"><input type="checkbox"	name="blockprogressbar" value="1" {BP_BLOCKSHOWPROGRESSBAR} /></td>
 	</tr>
 	
 	
 </table>
 
+<!-- IF .gamezone -->
 <table width="100%" border="0" cellspacing="1" cellpadding="2"
 	id="bossprog">
 
 	<thead>
 		<tr>
-			<th align="left" width="40" style="white-space: nowrap;">{L_ZONE_NAME}</th>
-			<th align="left" width="30" style="text-align: center">{L_ZONE_WEBLINK}</th>
-			<th align="center" width="20" style="text-align: center">{L_ZONE_COMPLETED}<br />
+			<th style="width:40px; white-space: nowrap;">{L_ZONE_NAME}</th>
+			<th style="width:30px; text-align: center">{L_ZONE_WEBLINK}</th>
+			<th style="width:20px; text-align: center">{L_ZONE_COMPLETED}<br />
 				<span class="small"><a href="#" onclick="marklist('acp_zoneprogress_list', 'zonecompleted', true); return false;">{L_MARK_ALL}</a> <br /> 
 				<a href="#" onclick="marklist('acp_zoneprogress_list', 'zonecompleted', false); return false;">{L_UNMARK_ALL}</a></span>
 			</th>
-			<th align="center" width="20" style="white-space: nowrap; text-align: center;">{L_SHOW_ZONE}
+			<th style="width:20px; white-space: nowrap; text-align: center;">{L_SHOW_ZONE}
 			<br />
 				<span class="small"><a href="#" onclick="marklist('acp_zoneprogress_list', 'showzone', true); return false;">{L_MARK_ALL}</a> <br /> 
 				<a href="#" onclick="marklist('acp_zoneprogress_list', 'showzone', false); return false;">{L_UNMARK_ALL}</a></span>
 			</th>
-			<th align="center" width="20"  style="white-space: normal; text-align: center;">{L_SHOW_ZONE_PORTAL}
+			<th style="width:20px; white-space: normal; text-align: center;">{L_SHOW_ZONE_PORTAL}
 			<br />
 				<span class="small"><a href="#" onclick="marklist('acp_zoneprogress_list', 'showzoneportal', true); return false;">{L_MARK_ALL}</a> <br /> 
 				<a href="#" onclick="marklist('acp_zoneprogress_list', 'showzoneportal', false); return false;">{L_UNMARK_ALL}</a></span>
 			</th>
-			<th align="center" width="10" style="text-align: center">{L_ZONE_SEQUENCE}</th>
-			<th align="center" width="10" style="text-align: center">{L_OPTIONS}</th>
+			<th style="width:10px; text-align: center">{L_ZONE_SEQUENCE}</th>
+			<th style="width:10px; text-align: center">{L_OPTIONS}</th>
 		</tr>
 	</thead>
 	<tbody>
 		<!-- BEGIN gamezone -->
-
 		<!-- IF gamezone.S_ROW_COUNT is even -->
 		<tr class="row1">
-			<!-- ELSE -->
-		</tr>
+		<!-- ELSE -->
 		<tr class="row2">
-			<!-- ENDIF -->
+		<!-- ENDIF -->
+			<td  style="width:40px; white-space: nowrap;">{gamezone.ZONE_NAME}
 			<input type="hidden" name="zoneid[{gamezone.ZONE_ID}]"  value="{gamezone.ZONE_ID}" />
 			<input type="hidden" name="zonesequence[{gamezone.ZONE_ID}]"  value="{gamezone.ZONE_SEQUENCE}" />
-			<td width="40" style="white-space: nowrap;">{gamezone.ZONE_NAME}</td>
-			<td width="30" style="white-space: nowrap;"><a href="{gamezone.ZONE_URL}">{gamezone.ZONE_NAME_SHORT}</a></td>
-			<td width="20" style=" white-space: nowrap; text-align: center"><input type="checkbox" name="zonecompleted[{gamezone.ZONE_ID}]" value="1" {gamezone.ZONE_COMPLETED} /> </td>
-			<td width="20" style="white-space: nowrap; text-align: center">
+			</td>
+			<td  style="width:30px; white-space: nowrap;"><a href="{gamezone.ZONE_URL}">{gamezone.ZONE_NAME_SHORT}</a></td>
+			<td  style="width:20px; white-space: nowrap; text-align: center"><input type="checkbox" name="zonecompleted[{gamezone.ZONE_ID}]" value="1" {gamezone.ZONE_COMPLETED} /> </td>
+			<td  style="width:20px; white-space: nowrap; text-align: center">
 				<input type="checkbox" name="showzone[{gamezone.ZONE_ID}]" value="1" {gamezone.ZONE_SHOW} />
 			</td>
-			<td width="10" style="white-space: nowrap; text-align: center">
+			<td  style="width:10px; white-space: nowrap; text-align: center">
 				<input type="checkbox" name="showzoneportal[{gamezone.ZONE_ID}]" value="1" {gamezone.ZONE_SHOW_PORTAL} />
 			</td>
 
-			<td width="10" style="white-space: nowrap;  text-align: center">
+			<td  style="width:10px; white-space: nowrap;  text-align: center">
 				<!-- IF gamezone.S_FIRST_ROW and not PREVIOUS_PAGE -->{ICON_MOVE_UP_DISABLED}<!-- ELSE --><a href="{gamezone.U_MOVE_UP}">{ICON_MOVE_UP}</a><!-- ENDIF -->&nbsp;
 				<!-- IF gamezone.S_LAST_ROW and not NEXT_PAGE -->{ICON_MOVE_DOWN_DISABLED}<!-- ELSE --><a href="{gamezone.U_MOVE_DOWN}">{ICON_MOVE_DOWN}</a><!-- ENDIF -->
 			</td>
-			<td width="5" style="white-space: nowrap;  text-align: center">
+			<td  style="width:5px; white-space: nowrap;  text-align: center">
 				<a href="{gamezone.U_EDIT}">{ICON_EDIT}</a>
 				<a href="{gamezone.U_DELETE}">{ICON_DELETE}</a>
 			</td>
-			
 		</tr>
 		<!-- END gamezone -->
 	</tbody>
 </table>
+<!-- ENDIF -->
 <br />
 
 <fieldset class="quick" style="float: {S_CONTENT_FLOW_BEGIN};">
@@ -188,7 +189,7 @@
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		{S_FORM_TOKEN}
 </fieldset>
-
+</div>
 </form>
 <!-- ENDIF -->
 

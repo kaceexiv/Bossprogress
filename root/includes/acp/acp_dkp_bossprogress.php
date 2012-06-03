@@ -107,21 +107,21 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 					for ($i = 1; $i < 32; $i++)
 					{
 						$selected = ($i == $now['mday']) ? ' selected="selected"' : '';
-						$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 			
 					$s_month_options = '<option value="0">--</option>';
 					for ($i = 1; $i < 13; $i++)
 					{
 						$selected = ($i == $now['mon']) ? ' selected="selected"' : '';
-						$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_month_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 			
 					$s_year_options = '<option value="0">--</option>';
 					for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 					{
 						$selected = ($i == $now['year']) ? ' selected="selected"' : '';
-						$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 					unset($now);
 					
@@ -300,7 +300,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 32; $i++)
 						{
 							$selected = ($i == $day) ? ' selected="selected"' : '';
-							$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$month = ($row2['killdate'] == 0) ? '' : date('m', $row2['killdate']);
@@ -308,7 +308,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 13; $i++)
 						{
 							$selected = ($i == $month) ? ' selected="selected"' : '';
-							$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_month_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$year = ($row2['killdate'] == 0) ? 0 : date('Y', $row2['killdate']);
@@ -316,14 +316,14 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 						{
 							$selected = ($i == $year) ? ' selected="selected"' : '';
-							$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 	                	
 	                    $template->assign_vars( array(
 	                    	'GAME_ID' 			=> $game_id  ,
 		                    'BOSS_ID' 			=> $row2['id']  ,
-		                    'BOSS_NAME' 		=> $row2['name']  ,
-		                    'BOSS_NAME_SHORT' 	=> $row2['name_short']  ,
+		                    'BOSS_NAME' 		=> htmlspecialchars($row2['name'])  ,
+		                    'BOSS_NAME_SHORT' 	=> htmlspecialchars($row2['name_short'])  ,
 		                    'BOSS_IMAGENAME' 	=> $row2['imagename']  ,
 	                    	'BOSS_IMAGE_COLOR' 	=> $phpbb_root_path . "images/bossprogress/". $game_id ."/bosses/" . $row2['imagename'] . ".gif",
 	                    	'BOSS_IMAGE_BW' 	=> $phpbb_root_path . "images/bossprogress/". $game_id ."/bosses/" . $row2['imagename'] . "_b.gif",
@@ -537,8 +537,8 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 		                	
 		                    $template->assign_block_vars('zone.boss', array(
 			                    'BOSS_ID' 			=> $row2['id']  ,
-			                    'BOSS_NAME' 		=> $row2['name']  ,
-			                    'BOSS_NAME_SHORT' 	=> $row2['name_short']  ,
+			                    'BOSS_NAME' 		=> htmlspecialchars($row2['name'])  ,
+			                    'BOSS_NAME_SHORT' 	=> htmlspecialchars($row2['name_short'])  ,
 			                    'BOSS_IMAGENAME' 	=> $row2['imagename']  ,
 		                    	'GAME_ID'			=> $game_id, 				
 			                    'S_KILLDATE_DAY_OPTIONS'	=> $s_day_options,
@@ -825,7 +825,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 32; $i++)
 						{
 							$selected = ($i == $day) ? ' selected="selected"' : '';
-							$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$s_month_options = '<option value="0">--</option>';
@@ -833,7 +833,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 13; $i++)
 						{
 							$selected = ($i == $month) ? ' selected="selected"' : '';
-							$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_month_options .= '<option value="' . $i .'"'. $selected . ">" . $i . "</option>";
 						}
 				
 						$s_year_options = '<option value="0">--</option>';
@@ -841,7 +841,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 						{
 							$selected = ($i == $year) ? ' selected="selected"' : '';
-							$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 						unset($now);
 				
