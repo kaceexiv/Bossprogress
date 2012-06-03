@@ -1,8 +1,4 @@
 <!-- INCLUDE overall_header.html -->
-<!--
-		$Id$
-//-->
-
 <!-- IF S_ADD -->
  <!-- load the template for adding a boss -->
 	<a href="{U_BACK}" style="float: {S_CONTENT_FLOW_END};">&laquo; {L_BACK}</a>
@@ -10,8 +6,7 @@
 	<h1>{L_RP_ADD_BOSS}</h1>
 	<p>{L_RP_BOSS_ADD_EXPLAIN}</p>
 	<form id="acp_bossprogress_add" method="post" action="{U_ACTION}">
-	<input type="hidden" name="game_id" value="{GAME_ID}" />
-	<input type="hidden" name="bossid" value="{BOSS_ID}" />
+	
 	<fieldset>
 	<dl>
 		<dt><label for="bossname">{L_BOSS_NAME}:</label><br /><span>{L_BOSS_NAME_EXPLAIN}</span></dt>
@@ -23,8 +18,11 @@
 	</dl>
 	<dl>
 		<dt><label for="boss_image">{L_BOSS_IMAGENAME}:</label><br /><span>{L_BOSS_IMAGENAME_EXPLAIN}</span></dt>
-		<dd><input name="boss_image" type="text" id="boss_image" maxlength="255" value="{BOSS_IMAGENAME}"  /></dd>
+		<dd><input name="boss_image" type="text" id="boss_image" maxlength="255" value="{BOSS_IMAGENAME}"  />
+		<br />
 		<img src="{BOSS_IMAGE_COLOR}" alt="{BOSS_IMAGENAME}" /><img src="{BOSS_IMAGE_BW}" alt="{BOSS_IMAGENAME}" />
+		</dd>
+		
 	</dl>
 	<dl>
 		<dt><label for="boss_type">{L_BOSS_TYPE}:</label><br /><span>{L_BOSS_TYPE_EXPLAIN}</span></dt>
@@ -40,21 +38,24 @@
 	</dl>
 	<dl>
 		<dt><label for="boss_completed">{L_BOSS_COMPLETED}:</label><br /><span>{L_BOSS_COMPLETED_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="boss_completed" value="1"  {BOSS_KILLED}/>
+		<dd>&nbsp;<input type="checkbox" name="boss_completed" id="boss_completed" value="1"  {BOSS_KILLED}/></dd>
 	</dl>
 	<dl>
-		<dt><label for="boss_killdate">{L_BOSS_COMPLETEDATE}:</label><br /><span>{L_BOSS_COMPLETEDATE_EXPLAIN}</span></dt>
+		<dt><label for="boss_killdate_day">{L_BOSS_COMPLETEDATE}:</label><br /><span>{L_BOSS_COMPLETEDATE_EXPLAIN}</span></dt>
 		<dd>
-		 {L_DAY}: <select id="boss_killdate" name="boss_killdate_day">{S_KILLDATE_DAY_OPTIONS}</select>
+		 {L_DAY}: <select id="boss_killdate_day" name="boss_killdate_day">{S_KILLDATE_DAY_OPTIONS}</select>
 		 {L_MONTH}: <select name="boss_killdate_month">{S_KILLDATE_MONTH_OPTIONS}</select> 
-		 {L_YEAR}: <select name="boss_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select></dd>
+		 {L_YEAR}: <select name="boss_killdate_year">{S_KILLDATE_YEAR_OPTIONS}</select>
+		 </dd>
 	</dl>
 	<dl>
 		<dt><label for="boss_show">{L_BOSS_SHOW}:</label><br /><span>{L_BOSS_SHOW_EXPLAIN}</span></dt>
-		&nbsp;<input type="checkbox" name="boss_show" value="1" {BOSS_SHOW}/>
+		<dd>&nbsp;<input type="checkbox" id="boss_show" name="boss_show" value="1" {BOSS_SHOW}/></dd>
 	</dl>
 
 	<p class="submit-buttons">
+		<input type="hidden" name="game_id" value="{GAME_ID}" />
+		<input type="hidden" name="bossid" value="{BOSS_ID}" />
 		<input class="button1" type="submit" id="addnew" name="addnew" value="{L_SUBMIT}" />&nbsp;
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		{S_FORM_TOKEN}
@@ -67,9 +68,9 @@
 <h1>{L_RP_BOSS}&nbsp;{BP_VERS}</h1>
 <p>{L_RP_BOSS_EXPLAIN}</p>
 
-<form method="post" id="acp_bossprogress_edit"  action="{F_CONFIG}" name="post">
+<form method="post" id="acp_bossprogress_edit"  action="{F_CONFIG}">
+<div>
 
-<input type="hidden" name="game_id" value="{GAME_ID}" />
 <select name="displaygame" class="input" onchange="javascript:form.submit();">
     <!-- BEGIN game_row -->
     <option value="{game_row.VALUE}"{game_row.SELECTED}>{game_row.OPTION}</option>
@@ -81,53 +82,55 @@
 		<th align="center" colspan="2">{L_GENERAL}</th>
 	</tr>
 	<tr>
-		<td width="70%" class="row2">{L_HIDENEWBOSS}</td>
-		<td width="30%" class="row1"><input type="checkbox" name="hidenewboss" value="1" {BP_HIDENONKIBOSS} /></td>
+		<td style="width:70%" class="row2">{L_HIDENEWBOSS}</td>
+		<td style="width:30%" class="row1"><input type="checkbox" name="hidenewboss" value="1" {BP_HIDENONKIBOSS} /></td>
 	</tr>
 </table>
+
+<!-- IF .zone -->
 <table width="100%" border="0" cellspacing="1" cellpadding="1" id="bossprog">
 	<thead>
 		<tr>
-			<th align="left" width="15" nowrap="nowrap">{L_BOSS_NAME}</th>
-			<th align="left" width="15" nowrap="nowrap">{L_BOSS_NAME_SHORT}</th>
-			<th align="left" width="10" nowrap="nowrap">{L_BOSS_IMAGENAME}</th>
-			<th align="left" width="10" nowrap="nowrap">{L_BOSS_WEBID}</th>
-			<th align="center" width="5">{L_BOSS_COMPLETED}<br />
+			<th style="text-align:left; width:15px; white-space: nowrap;">{L_BOSS_NAME}</th>
+			<th style="text-align:left; width:15px; white-space: nowrap;">{L_BOSS_NAME_SHORT}</th>
+			<th style="text-align:left; width:10px; white-space: nowrap;">{L_BOSS_IMAGENAME}</th>
+			<th style="text-align:left; width:10px; white-space: nowrap;">{L_BOSS_WEBID}</th>
+			<th style="text-align:center; width:5px">{L_BOSS_COMPLETED}<br />
 				<span class="small"><a href="#" onclick="marklist('acp_bossprogress_edit', 'bosskilled', true); return false;">{L_MARK_ALL}</a> <br /> 
 				<a href="#" onclick="marklist('acp_bossprogress_edit', 'bosskilled', false); return false;">{L_UNMARK_ALL}</a></span>
 				
 			</th>
-			<th align="left" width="10" >{L_BOSS_COMPLETEDATE}</th>
-			<th align="center" width="2%" nowrap="nowrap">{L_BOSS_SHOW}
+			<th style="text-align:left; width:10px" >{L_BOSS_COMPLETEDATE}</th>
+			<th style="text-align:center; width:2px; white-space: nowrap;">{L_BOSS_SHOW}
 			<br />
 				<span class="small"><a href="#" onclick="marklist('acp_bossprogress_edit', 'bossshow', true); return false;">{L_MARK_ALL}</a> <br /> 
 				<a href="#" onclick="marklist('acp_bossprogress_edit', 'bossshow', false); return false;">{L_UNMARK_ALL}</a></span>
 			</th>
-			<th align="center" width="3%">{L_OPTIONS}</th>
+			<th style="text-align:center; width:3px">{L_OPTIONS}</th>
 		</tr>
 	</thead>
 <tbody>
 <!-- BEGIN zone -->
 		<tr>
-			<th colspan=8 width="100%" nowrap="nowrap">{zone.ZONE_NAME}</th>
+			<th colspan="8" style="width:100%; white-space: nowrap;">{zone.ZONE_NAME}</th>
 		</tr>
 
 		<!-- BEGIN boss -->
 		<!-- IF zone.boss.S_ROW_COUNT is even -->
 		<tr class="row1">
 		<!-- ELSE -->
-		</tr>
 		<tr class="row2">
 		<!-- ENDIF -->
+			<td style="width:17px; white-space: nowrap;"><input class="text post" type="text" size="17" name="bossname[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_NAME}" /> 
 			<input type="hidden" name="bossid[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_ID}" />
-			<td width="17" nowrap="nowrap"><input class="text post" type="text" size="17" name="bossname[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_NAME}" />  </td>
-			<td width="17" nowrap="nowrap"><input class="text post" type="text" size="17" name="bossnameshort[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_NAME_SHORT}" />    </td>
-			<td width="17" nowrap="nowrap">{zone.boss.BOSS_IMAGENAME}</td>
-			<td width="10" nowrap="nowrap"><input class="text post" type="text" size="8" name="bosswebid[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_WEBID}" />   </td>
-			<td width="5" nowrap="nowrap" align="center"><input type="checkbox" name="bosskilled[{zone.boss.BOSS_ID}]" value="1" {zone.boss.BOSS_KILLED} /> </td>
-			<td width="10" nowrap="nowrap" style="text-align: center;">{zone.boss.BOSS_KILLDATE}</td>
-			<td width="2%" nowrap="nowrap" align="center"><input type="checkbox" name="bossshow[{zone.boss.BOSS_ID}]" value="1" {zone.boss.BOSS_SHOW} /></td>
-			<td width="3%" nowrap="nowrap">
+			 </td>
+			<td style="width:17px; white-space: nowrap;"><input class="text post" type="text" size="17" name="bossnameshort[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_NAME_SHORT}" />    </td>
+			<td style="width:17px; white-space: nowrap;">{zone.boss.BOSS_IMAGENAME}</td>
+			<td style="width:10px; white-space: nowrap;"><input class="text post" type="text" size="8" name="bosswebid[{zone.boss.BOSS_ID}]" value="{zone.boss.BOSS_WEBID}" />   </td>
+			<td style="width:5px; white-space: nowrap; text-align:center"><input type="checkbox" name="bosskilled[{zone.boss.BOSS_ID}]" value="1" {zone.boss.BOSS_KILLED} /> </td>
+			<td style="width:10px; white-space: nowrap; text-align: center;">{zone.boss.BOSS_KILLDATE}</td>
+			<td style="width:2px; white-space: nowrap; text-align:center"><input type="checkbox" name="bossshow[{zone.boss.BOSS_ID}]" value="1" {zone.boss.BOSS_SHOW} /></td>
+			<td style="width:3px; white-space: nowrap;">
 				<a href="{zone.boss.U_EDIT}">{ICON_EDIT}</a>
 				<a href="{zone.boss.U_DELETE}">{ICON_DELETE}</a>
 			</td>	
@@ -136,19 +139,20 @@
 <!-- END zone -->
 </tbody>
 </table>
-
+<!-- ENDIF -->
 <fieldset class="quick" style="float: {S_CONTENT_FLOW_BEGIN};">
 	<input class="button2" name="bpadd" type="submit" value="{L_ADD}" />
 </fieldset>
 
 <fieldset class="quick" style="float: {S_CONTENT_FLOW_END};">
+	<input type="hidden" name="game_id" value="{GAME_ID}" />
 	<input type="submit" name="bpsave" value="{L_SUBMIT}" class="button1" />
 		&nbsp;
 		<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
 		{S_FORM_TOKEN}
-     </fieldset>
+</fieldset>
+</div>
 </form>
 <!-- ENDIF -->
 
 <!-- INCLUDE dkp/overall_footer.html -->
-

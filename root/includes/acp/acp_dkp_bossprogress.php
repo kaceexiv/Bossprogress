@@ -63,7 +63,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 			
 		}
 		
-		$game_id = request_var('displaygame', '');
+		$game_id = request_var('displaygame', $game_id = request_var('game_id', ''));
 		
 		// dump gamelist to template
 		foreach ($installed_games as $id => $gamename)
@@ -107,21 +107,21 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 					for ($i = 1; $i < 32; $i++)
 					{
 						$selected = ($i == $now['mday']) ? ' selected="selected"' : '';
-						$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 			
 					$s_month_options = '<option value="0">--</option>';
 					for ($i = 1; $i < 13; $i++)
 					{
 						$selected = ($i == $now['mon']) ? ' selected="selected"' : '';
-						$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_month_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 			
 					$s_year_options = '<option value="0">--</option>';
 					for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 					{
 						$selected = ($i == $now['year']) ? ' selected="selected"' : '';
-						$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+						$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 					}
 					unset($now);
 					
@@ -300,7 +300,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 32; $i++)
 						{
 							$selected = ($i == $day) ? ' selected="selected"' : '';
-							$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$month = ($row2['killdate'] == 0) ? '' : date('m', $row2['killdate']);
@@ -308,7 +308,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 13; $i++)
 						{
 							$selected = ($i == $month) ? ' selected="selected"' : '';
-							$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_month_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$year = ($row2['killdate'] == 0) ? 0 : date('Y', $row2['killdate']);
@@ -316,14 +316,14 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 						{
 							$selected = ($i == $year) ? ' selected="selected"' : '';
-							$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 	                	
 	                    $template->assign_vars( array(
 	                    	'GAME_ID' 			=> $game_id  ,
 		                    'BOSS_ID' 			=> $row2['id']  ,
-		                    'BOSS_NAME' 		=> $row2['name']  ,
-		                    'BOSS_NAME_SHORT' 	=> $row2['name_short']  ,
+		                    'BOSS_NAME' 		=> htmlspecialchars($row2['name'])  ,
+		                    'BOSS_NAME_SHORT' 	=> htmlspecialchars($row2['name_short'])  ,
 		                    'BOSS_IMAGENAME' 	=> $row2['imagename']  ,
 	                    	'BOSS_IMAGE_COLOR' 	=> $phpbb_root_path . "images/bossprogress/". $game_id ."/bosses/" . $row2['imagename'] . ".gif",
 	                    	'BOSS_IMAGE_BW' 	=> $phpbb_root_path . "images/bossprogress/". $game_id ."/bosses/" . $row2['imagename'] . "_b.gif",
@@ -418,11 +418,43 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						// again if the boss is marked as not killed, unmark its zone as completed
 						if( ! isset ($_POST ['bosskilled'][$key])  )
 						{
-							$sql = 'UPDATE ' . ZONEBASE . ' z , ' . BOSSBASE . " b 
-									SET z.completed = 0 
-									WHERE z.id=b.zoneid 
-									AND b.game = z.game and b.game = '". $game_id ."'
-									AND b.id = " . $key;	
+							switch ($db->sql_layer)
+							{
+									case 'mysqli':
+									case 'mysql4':
+									case 'mysql':
+										$sql = 'UPDATE ' . ZONEBASE . ' z , ' . BOSSBASE . " b 
+												SET z.completed = 0 
+												WHERE z.id=b.zoneid 
+												AND b.game = z.game and b.game = '". $game_id ."'
+												AND b.id = " . $key;	
+										break;
+									case 'postgres':
+										$sql = 'UPDATE ' . ZONEBASE . '  
+												SET completed = 0 
+												FROM ' . BOSSBASE . '  
+												WHERE ' . ZONEBASE . '.id=' . BOSSBASE . '.zoneid AND ' . BOSSBASE . '.game = ' . ZONEBASE . '.game and ' . BOSSBASE . ".game = '". $game_id ."'
+												AND " . BOSSBASE . '.id = ' . $key;	
+										break;
+									case 'mssql':
+									case 'mssql_odbc':
+									case 'mssqlnative':
+										$sql = 'UPDATE ' . ZONEBASE . ' z 
+												SET z.completed = 0 
+												FROM ' . BOSSBASE . " b 
+												INNER JOIN z.id=b.zoneid 
+												WHEREb.game = z.game and b.game = '". $game_id ."'
+												AND b.id = " . $key;	
+										break;
+									case 'oracle':
+										$sql = 'UPDATE 
+												( SELECT z.completed 
+												FROM ' . ZONEBASE . ' z 
+												INNER JOIN ' . BOSSBASE . " b ON z.id=b.zoneid AND b.game = z.game 
+												WHERE b.game = '". $game_id ."' AND b.id = " . $key . ' ) t	
+												SET t.completed = 0 ';
+										break;									
+							}
 							$db->sql_query($sql);	
 						}
 						
@@ -505,8 +537,8 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 		                	
 		                    $template->assign_block_vars('zone.boss', array(
 			                    'BOSS_ID' 			=> $row2['id']  ,
-			                    'BOSS_NAME' 		=> $row2['name']  ,
-			                    'BOSS_NAME_SHORT' 	=> $row2['name_short']  ,
+			                    'BOSS_NAME' 		=> htmlspecialchars($row2['name'])  ,
+			                    'BOSS_NAME_SHORT' 	=> htmlspecialchars($row2['name_short'])  ,
 			                    'BOSS_IMAGENAME' 	=> $row2['imagename']  ,
 		                    	'GAME_ID'			=> $game_id, 				
 			                    'S_KILLDATE_DAY_OPTIONS'	=> $s_day_options,
@@ -793,7 +825,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 32; $i++)
 						{
 							$selected = ($i == $day) ? ' selected="selected"' : '';
-							$s_day_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_day_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 				
 						$s_month_options = '<option value="0">--</option>';
@@ -801,7 +833,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = 1; $i < 13; $i++)
 						{
 							$selected = ($i == $month) ? ' selected="selected"' : '';
-							$s_month_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_month_options .= '<option value="' . $i .'"'. $selected . ">" . $i . "</option>";
 						}
 				
 						$s_year_options = '<option value="0">--</option>';
@@ -809,7 +841,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 						for ($i = $now['year'] - 10; $i <= $now['year']; $i++)
 						{
 							$selected = ($i == $year) ? ' selected="selected"' : '';
-							$s_year_options .= "<option value=" . $i . $selected . ">" . $i . "</option>";
+							$s_year_options .= '<option value="' . $i . '"' . $selected . ">" . $i . "</option>";
 						}
 						unset($now);
 				
@@ -927,6 +959,7 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 				}
 				
 				$arrvals = array (
+					'GAME_ID'			 => $game_id,  
 					'F_CONFIG' 			 => append_sid("{$phpbb_admin_path}index.$phpEx", "i=dkp_bossprogress&amp;mode=zoneprogress"),
 					'BP_HIDENEWZONE'	 => ($config['bbdkp_bp_hidenewzone'] == 1) ? 'checked="checked"' : '',
 					'BP_HIDENONKIBOSS' 	 => ($config['bbdkp_bp_hidenonkilled'] == 1) ? 'checked="checked"' : '',
