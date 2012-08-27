@@ -483,7 +483,6 @@ class acp_dkp_bossprogress extends bbDKP_Admin
 					
 					$sql = $db->sql_build_query('SELECT', $sql_array);
 					$result = $db->sql_query($sql);
-	                $row = $db->sql_fetchrow($result); 
 	                while ( $row = $db->sql_fetchrow($result) )
 	                {
 	                	$zoneid = $row['id'];
