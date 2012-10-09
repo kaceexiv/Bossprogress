@@ -252,7 +252,18 @@ function displaygame($game_id, $game_name)
 	                {
 	                	$bossimg="{$phpbb_root_path}images/bossprogress/" . $game_id . '/bosses/' . $boss['imagename'] . '.gif';  
 					}
-	            } 
+	            }
+				elseif (file_exists ( "{$phpbb_root_path}images/bossprogress/" . $game_id . '/bosses/' . $boss['imagename'].'.png' )) 
+	            {
+					if ($boss['killed'] == 0)
+					{
+						$bossimg="{$phpbb_root_path}images/bossprogress/" . $game_id . '/bosses/' . $boss['imagename'] . '_b.png';  
+					}
+	                else
+	                {
+	                	$bossimg="{$phpbb_root_path}images/bossprogress/" . $game_id . '/bosses/' . $boss['imagename'] . '.png';  
+					}
+	            }
 				else 
 				{
 					$bossimg ="{$phpbb_root_path}images/bossprogress/" . $game_id . "/bosses/turkey.gif"; 
