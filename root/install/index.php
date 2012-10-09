@@ -182,16 +182,23 @@ $versions = array(
      		'gameinstall',         
        	),           
 
-     ),
+	),
     
-		'1.0.6'    => array(
-			// version update
-			'custom' => array(
-     		'gameinstall',     
-            'Bossprogressupdater',
-       	), 
-       ), 
-
+	'1.0.6'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',     
+			'Bossprogressupdater',
+		),
+	),
+	
+	'1.0.7'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',     
+			'Bossprogressupdater',
+		),
+	),
 );
 
 // Include the UMIF Auto file and everything else will be handled automatically.
@@ -286,6 +293,12 @@ function gameinstall($action, $version)
 					}
 					break;
 					
+				case '1.0.7':
+					if ($config['bbdkp_games_wow'] == 1)
+					{
+						update_wow_mv($action, $version);
+					}
+					break;
 			}
 			break;
 			
