@@ -297,6 +297,8 @@ function gameinstall($action, $version)
 					if ($config['bbdkp_games_wow'] == 1)
 					{
 						update_wow_mv($action, $version);
+						update_wow_hof($action, $version);
+						update_wow_tes($action, $version);
 					}
 					break;
 			}
