@@ -5,11 +5,7 @@
  * @package bbDkp-installer
  * @copyright (c) 2009 bbDkp <http://code.google.com/p/bbdkp/>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version $Id$
- * 
- * 
- * 
- * 
+ * @version 1.0.7
  */
 
 /**
@@ -2031,12 +2027,7 @@ function update_wow_hof()
 		return;
 	}
 	else
-	{	
-		
-		// hide other zones
-		$sql = 'UPDATE ' . $table_prefix . "bbdkp_zonetable SET  showzone = 0 , showzoneportal = 0 where game = 'wow'";
-		$db->sql_query($sql);
-		 
+	{
 		//find highest slot 
 		$sql = "select max(sequence) as maxseq from " . $table_prefix . "bbdkp_zonetable where game = 'wow' ";
 		$result = $db->sql_query($sql);
@@ -2241,12 +2232,7 @@ function update_wow_tes()
 		return;
 	}
 	else
-	{	
-		
-		// hide other zones
-		$sql = 'UPDATE ' . $table_prefix . "bbdkp_zonetable SET  showzone = 0 , showzoneportal = 0 where game = 'wow'";
-		$db->sql_query($sql);
-		 
+	{
 		//find highest slot 
 		$sql = "select max(sequence) as maxseq from " . $table_prefix . "bbdkp_zonetable where game = 'wow' ";
 		$result = $db->sql_query($sql);
