@@ -7,14 +7,40 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (offline version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Bossprogress 1.0.6]]></title>
+		<title lang="en"><![CDATA[Bossprogress 1.0.7]]></title>
 	<description lang="en"><![CDATA[Bossprogress is a plug-in to show an overview of all killed bosses on one page, aswell as a portal plugin]]></description>
 	<description lang="fr"><![CDATA[Bossprogress est une addition à bbDKP permettant de voir tous les boss sur une page, aisi qu'un block de portail]]></description>
-<author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.5 or higher]]>
+<author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.8 or higher
+Post-install instructions : 
+1) copy the image folders to /images manually. 
+Automod cannot handle it as it would lead to a timeout due to the size (21,9mb) ! 
+<file from="root/images/*.*" to="images/*.*" />   
+2) Run Bossprogress database installation : install/index.php 
+3) Finally rename the install folder. 
+]]>
 </author-notes>
-<author-notes lang="fr"><![CDATA[Requis : bbDKP 1.2.5 or higher]]>
+<author-notes lang="fr"><![CDATA[Requis : bbDKP 1.2.8 ou mieux
+Liste des changements : /docs/changelog.html
+
+Résumé des étapes de post-installation
+
+1) Copier ces fichiers vers le repertoire /images  
+En raison de la taille de ce répertoires (±21,mb), Automod ne sait pas les copier, cela causerait un 'timeout'. 
+<file from="root/images/*.*" to="images/*.*" />   
+2) lancer l’installateur ou m.a.j, demarrez install/index.php
+3) Rennome ou supprime le repertoire /install pour réactiver le forum.
+]]>
 </author-notes>
-<author-notes lang="de"><![CDATA[Benötigt : bbDKP 1.2.5 or higher]]>
+<author-notes lang="de"><![CDATA[Benötigt : bbDKP 1.2.8 oder besser
+Liste der änderungen : /docs/changelog.html
+
+1) Kopiere diese Dateien zum Verzeichnis /images 
+Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies nicht kopieren wegen Auszeit. 
+<file from="root/images/*.*" to="images/*.*" />   
+2) Datenbank Installation order aktualisierung : install/index.php 
+3) lösche, verschiebe oder benenne das Installations-Verzeichnis „install" damit das Forum wieder zugänglich wird.
+
+]]>
 </author-notes>
 <author-group>
 			<author>
@@ -41,7 +67,6 @@
 				<homepage><![CDATA[http://www.bbdkp.com]]></homepage>
 				<email><![CDATA[cs.krushin@gmail.com]]></email>
 				<contributions-group>
-					<contributions status="current" from="2009-09-01" position="Developer"/>
 					<contributions status="past" from="2007-12-27" to="2009-01-01" position="Former Leader, bbDKP Supporter"/>
 				</contributions-group>
 			</author>
@@ -54,11 +79,11 @@
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.6</mod-version>
+		<mod-version>1.0.7</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
-			<target-version>3.0.10</target-version>
+			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
 			<link type="language" lang="en" href="contrib/fr.xml">French</link>

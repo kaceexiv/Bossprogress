@@ -22,19 +22,22 @@ if ( !defined('IN_PHPBB') OR !defined('IN_BBDKP') )
 $user->add_lang ( array ('mods/dkp_bossprogress' ));
 /*
  * installed games
- */
+ */		
 $games = array(
-    'wow'        => $user->lang['WOW'], 
-    'lotro'      => $user->lang['LOTRO'], 
-    'eq'         => $user->lang['EQ'], 
-    'daoc'       => $user->lang['DAOC'], 
-    'vanguard' 	 => $user->lang['VANGUARD'],
-    'eq2'        => $user->lang['EQ2'],
-    'warhammer'  => $user->lang['WARHAMMER'],
-    'aion'       => $user->lang['AION'],
-    'FFXI'       => $user->lang['FFXI'],
-	'rift'       => $user->lang['RIFT'],
-	'swtor'      => $user->lang['SWTOR']
+		'wow' => $user->lang ['WOW'], 
+		'lotro' => $user->lang ['LOTRO'], 
+		'eq' => $user->lang ['EQ'], 
+		'daoc' => $user->lang ['DAOC'], 
+		'vanguard' => $user->lang ['VANGUARD'], 
+		'eq2' => $user->lang ['EQ2'], 
+		'warhammer' => $user->lang ['WARHAMMER'], 
+		'aion' => $user->lang ['AION'], 
+		'FFXI' => $user->lang ['FFXI'], 
+		'rift' => $user->lang ['RIFT'], 
+		'swtor' => $user->lang ['SWTOR'], 
+		'lineage2' => $user->lang ['LINEAGE2'],
+    	'tera' => $user->lang ['TERA'],
+    	'gw2' => $user->lang ['GW2'],
 );
 
 $installed_games = array();

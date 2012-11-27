@@ -1,4 +1,4 @@
-#Boss progress v1.0.6
+#Boss progress v1.0.7
 
 Raid progress viewer
 
@@ -13,6 +13,9 @@ Raid progress viewer
 *	Boss images included (color and b/w)
 *	Zone images included (color, sepia and grey)
 
+### Requirements
+*	phpBB3
+*	bbDKP 1.2.8
 
 ### Installation
 * 	Copy the Bossprogress folder to /store/mods/
@@ -22,15 +25,15 @@ Raid progress viewer
 * 	delete install folder
 
 
-### Requirements
-*	phpBB3
-*	bbDKP 1.2.6
-
+### changelog since v1.0.6
+*	added Pandaria zones and bosses: terrace of endless spring, heart of fear, mogushan vaults (Blazeflack)
+*	add check for png extension on boss images (Blazeflack)
+*	fixed installer (Blazeflack)
+*	fixed bug which was causing the first zone in the boss configuration list in the ACP to not show.  (Ylaana)
 
 
 ### Upgrade Notes
-*	Bossprogress 1.0.5 has a language file (dkp_admin.php) with the same name as used in bbDKP, thus overwriting the bbDKP language file. This was corrected. 
-
+*	if installing with automod, please copy the /images/Bossprogress directory manually. 
 
 
 
