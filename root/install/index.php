@@ -4,7 +4,7 @@
  * @author sajaki9@gmail.com
  * @copyright (c) 2009 bbDkp <http://code.google.com/p/bbdkp/>
  * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @version 1.0.6
+ * @version 1.0.7
  * 
  * Bossprogress plugin install script
  * 
@@ -43,7 +43,7 @@ if (!file_exists($phpbb_root_path . 'install/index.' . $phpEx))
 }
 
 // The name of the mod to be displayed during installation.
-$mod_name = 'Bossprogress Plugin 1.0.6';
+$mod_name = 'Bossprogress Plugin 1.0.7';
 
 /*
 * The name of the config variable which will hold the currently installed version
@@ -182,16 +182,23 @@ $versions = array(
      		'gameinstall',         
        	),           
 
-     ),
+	),
     
-		'1.0.6'    => array(
-			// version update
-			'custom' => array(
-     		'gameinstall',     
-            'Bossprogressupdater',
-       	), 
-       ), 
-
+	'1.0.6'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',
+			'Bossprogressupdater',
+		),
+	),
+	
+	'1.0.7'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',     
+			'Bossprogressupdater',
+		),
+	),
 );
 
 // Include the UMIF Auto file and everything else will be handled automatically.
@@ -286,6 +293,12 @@ function gameinstall($action, $version)
 					}
 					break;
 					
+				case '1.0.7':
+					if ($config['bbdkp_games_wow'] == 1)
+					{
+						update_wow_tier14();
+					}
+					break;
 			}
 			break;
 			
@@ -300,6 +313,13 @@ function gameinstall($action, $version)
 			return array('command' => 'BOSSPROGRESS_UNINSTALL_MOD', 'result' => 'SUCCESS');
 	}		
 			
+}
+
+function update_wow_tier14()
+{
+	update_wow_mv($action, $version);
+	update_wow_hof($action, $version);
+	update_wow_tes($action, $version);
 }
 
 function Bossprogressupdater($action, $version)
