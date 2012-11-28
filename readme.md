@@ -12,6 +12,7 @@ Raid progress viewer
 		![image](http://i.imgur.com/uQ9NY.png)
 *	Boss images included (color and b/w)
 *	Zone images included (color, sepia and grey)
+*	psd files for Pandaria
 
 ### Requirements
 *	phpBB3
@@ -33,7 +34,7 @@ Raid progress viewer
 
 
 ### Upgrade Notes
-*	if installing with automod, please copy the /images/Bossprogress directory manually. 
+*	please copy the /images/Bossprogress directory manually. 
 
 
 
