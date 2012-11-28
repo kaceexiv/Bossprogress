@@ -296,7 +296,7 @@ function gameinstall($action, $version)
 				case '1.0.7':
 					if ($config['bbdkp_games_wow'] == 1)
 					{
-						update_wow_tier14();
+						update_wow_tier14($action, $version);
 					}
 					break;
 			}
@@ -315,7 +315,7 @@ function gameinstall($action, $version)
 			
 }
 
-function update_wow_tier14()
+function update_wow_tier14($action, $version)
 {
 	update_wow_mv($action, $version);
 	update_wow_hof($action, $version);
