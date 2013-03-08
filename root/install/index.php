@@ -299,6 +299,13 @@ function gameinstall($action, $version)
 						update_wow_tier14($action, $version);
 					}
 					break;
+					
+				case '1.0.8':
+					if ($config['bbdkp_games_wow'] == 1)
+					{
+						update_wow_tot($action, $version);
+					}
+					break;
 			}
 			break;
 			
