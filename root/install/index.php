@@ -43,7 +43,7 @@ if (!file_exists($phpbb_root_path . 'install/index.' . $phpEx))
 }
 
 // The name of the mod to be displayed during installation.
-$mod_name = 'Bossprogress Plugin 1.0.7';
+$mod_name = 'Bossprogress Plugin 1.0.8';
 
 /*
 * The name of the config variable which will hold the currently installed version
@@ -193,6 +193,14 @@ $versions = array(
 	),
 	
 	'1.0.7'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',     
+			'Bossprogressupdater',
+		),
+	),
+
+	'1.0.8'    => array(
 		// version update
 		'custom' => array(
 			'gameinstall',     
