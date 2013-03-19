@@ -43,7 +43,7 @@ if (!file_exists($phpbb_root_path . 'install/index.' . $phpEx))
 }
 
 // The name of the mod to be displayed during installation.
-$mod_name = 'Bossprogress Plugin 1.0.7';
+$mod_name = 'Bossprogress Plugin 1.0.8';
 
 /*
 * The name of the config variable which will hold the currently installed version
@@ -199,6 +199,14 @@ $versions = array(
 			'Bossprogressupdater',
 		),
 	),
+
+	'1.0.8'    => array(
+		// version update
+		'custom' => array(
+			'gameinstall',     
+			'Bossprogressupdater',
+		),
+	),
 );
 
 // Include the UMIF Auto file and everything else will be handled automatically.
@@ -297,6 +305,13 @@ function gameinstall($action, $version)
 					if ($config['bbdkp_games_wow'] == 1)
 					{
 						update_wow_tier14($action, $version);
+					}
+					break;
+					
+				case '1.0.8':
+					if ($config['bbdkp_games_wow'] == 1)
+					{
+						update_wow_tot($action, $version);
 					}
 					break;
 			}
