@@ -7,7 +7,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (offline version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Bossprogress 1.0.7]]></title>
+		<title lang="en"><![CDATA[Bossprogress 1.0.8]]></title>
 	<description lang="en"><![CDATA[Bossprogress is a plug-in to show an overview of all killed bosses on one page, aswell as a portal plugin]]></description>
 	<description lang="fr"><![CDATA[Bossprogress est une addition à bbDKP permettant de voir tous les boss sur une page, aisi qu'un block de portail]]></description>
 <author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.8 or higher
@@ -79,7 +79,7 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.7</mod-version>
+		<mod-version>1.0.8</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>
@@ -168,7 +168,6 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 		
 		<php-installer><![CDATA[install/index.php]]></php-installer>
 		<diy-instructions lang="en"><![CDATA[Please see the full installation and upgrade instructions here : /docs/install.html
-What has changed ? see here : /docs/changelog.html
 
 Post-install instructions : 
 
@@ -179,7 +178,6 @@ Automod cannot handle it as it would lead to a timeout due to the size (21,9mb) 
 3) Finally rename the install folder. 
 		Enjoy ;)]]></diy-instructions>
 <diy-instructions lang="fr"><![CDATA[le guide d’installation et mise à jour : /docs/install.html
-Liste des changements : /docs/changelog.html
 
 Résumé des étapes de post-installation
 
@@ -190,7 +188,6 @@ En raison de la taille de ce répertoires (±21,mb), Automod ne sait pas les cop
 3) Rennome ou supprime le repertoire /install pour réactiver le forum.
 Success ;)	]]></diy-instructions>		
 <diy-instructions lang="de"><![CDATA[Installations und Upgradeanweisungen : /docs/install.html
-Liste der änderungen : /docs/changelog.html
 
 1) Kopiere diese Dateien zum Verzeichnis /images 
 Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies nicht kopieren wegen Auszeit. 

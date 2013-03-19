@@ -1,4 +1,4 @@
-#Boss progress v1.0.7
+#Boss progress v1.0.8
 
 Raid progress viewer
 
@@ -26,11 +26,8 @@ Raid progress viewer
 * 	delete install folder
 
 
-### changelog since v1.0.6
-*	added Pandaria zones and bosses: terrace of endless spring, heart of fear, mogushan vaults (Blazeflack)
-*	add check for png extension on boss images (Blazeflack)
-*	fixed installer (Blazeflack)
-*	fixed bug which was causing the first zone in the boss configuration list in the ACP to not show.  (Ylaana)
+### changelog since v1.0.7
+*	added Pandaria zones and bosses: Throne of Thunder (Blazeflack)
 
 
 ### Upgrade Notes
