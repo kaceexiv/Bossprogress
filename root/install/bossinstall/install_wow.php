@@ -2451,7 +2451,7 @@ function update_wow_tot()
 		$sql_ary[] = array('id' => $maxid+23, 'imagename' => 'twin_consorts' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '68905' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
 		$sql_ary[] = array('id' => $maxid+24, 'imagename' => 'lei_shen' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '68397' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
 		// Ra-Den is a heroic only boss, so only insert in heroic zones. NPC ID is not yet known, using a datamined ID until we know for sure.
-		$sql_ary[] = array('id' => $maxid+25, 'imagename' => 'ra_den' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '69888' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
+		$sql_ary[] = array('id' => $maxid+25, 'imagename' => 'ra_den' , 'game' => 'wow' , 'zoneid' => $maxzoneid+2 , 'type' =>  'npc'  , 'webid' =>  '69473' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
 
 		$sql_ary[] = array('id' => $maxid+26, 'imagename' => 'jinrokh_the_breaker' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '69465' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1 );
 		$sql_ary[] = array('id' => $maxid+27, 'imagename' => 'horridon' , 'game' => 'wow' , 'zoneid' => $maxzoneid+3 , 'type' =>  'npc'  , 'webid' =>  '68476' , 'killed' =>  '0' , 'killdate' =>  '0' , 'counter' =>  '0' , 'showboss' =>  1  );
