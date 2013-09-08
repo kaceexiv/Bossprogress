@@ -7,7 +7,7 @@
 	<header>
 		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (offline version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
-		<title lang="en"><![CDATA[Bossprogress 1.0.8]]></title>
+		<title lang="en"><![CDATA[Bossprogress 1.0.9]]></title>
 	<description lang="en"><![CDATA[Bossprogress is a plug-in to show an overview of all killed bosses on one page, aswell as a portal plugin]]></description>
 	<description lang="fr"><![CDATA[Bossprogress est une addition à bbDKP permettant de voir tous les boss sur une page, aisi qu'un block de portail]]></description>
 <author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.8 or higher
@@ -79,7 +79,7 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 				</contributions-group>
 			</author>
 		</author-group>
-		<mod-version>1.0.8</mod-version>
+		<mod-version>1.0.9</mod-version>
 		<installation>
 			<level>easy</level>
 			<time>300</time>

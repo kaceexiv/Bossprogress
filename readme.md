@@ -1,4 +1,4 @@
-#Boss progress v1.0.8
+#Boss progress v1.0.9
 
 Raid progress viewer
 
@@ -26,8 +26,8 @@ Raid progress viewer
 * 	delete install folder
 
 
-### changelog since v1.0.7
-*	added Pandaria zones and bosses: Throne of Thunder (Blazeflack)
+### changelog since v1.0.8
+*	added new Pandaria zone and bosses: Siege of Orgrimmar (Blazeflack)
 
 
 ### Upgrade Notes
