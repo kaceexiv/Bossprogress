@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
-<!-- bbdkp installer $id$ -->
 <!--NOTICE: Please open this file in your web browser. If presented with a security warning, you may safely tell it to allow the blocked content.-->
 <!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD.\nAlthough MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD.\nNo support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
-<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.5.xsd">
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://www.phpbb.com/mods/xml/modx-1.2.6.xsd">
 	<header>
+		<meta name="generator" content="MODX file generated with PP MODX Creator by tumba25 (online version)"/>
 		<meta name="generator" content="MODX file generated with PP MODX Creator 1.0.1 by tumba25 (offline version)"/>
 		<license><![CDATA[http://opensource.org/licenses/gpl-license.php GNU General Public License v2]]></license>
 		<title lang="en"><![CDATA[Bossprogress 1.0.9]]></title>
-	<description lang="en"><![CDATA[Bossprogress is a plug-in to show an overview of all killed bosses on one page, aswell as a portal plugin]]></description>
-	<description lang="fr"><![CDATA[Bossprogress est une addition à bbDKP permettant de voir tous les boss sur une page, aisi qu'un block de portail]]></description>
-<author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.8 or higher
+		<description lang="en"><![CDATA[Bossprogress is a plug-in to show an overview of all killed bosses on one page, aswell as a portal plugin]]></description>
+		<description lang="fr"><![CDATA[Bossprogress est une addition à bbDKP permettant de voir tous les boss sur une page, aisi qu'un block de portail]]></description>
+		<author-notes lang="en"><![CDATA[Requirement : bbDKP 1.2.8 or higher
 Post-install instructions : 
 1) copy the image folders to /images manually. 
 Automod cannot handle it as it would lead to a timeout due to the size (21,9mb) ! 
 <file from="root/images/*.*" to="images/*.*" />   
 2) Run Bossprogress database installation : install/index.php 
-3) Finally rename the install folder. 
-]]>
-</author-notes>
-<author-notes lang="fr"><![CDATA[Requis : bbDKP 1.2.8 ou mieux
+3) Finally rename the install folder.]]></author-notes>
+		<author-notes lang="fr"><![CDATA[Requis : bbDKP 1.2.8 ou mieux
 Liste des changements : /docs/changelog.html
 
 Résumé des étapes de post-installation
@@ -28,21 +26,16 @@ Résumé des étapes de post-installation
 En raison de la taille de ce répertoires (±21,mb), Automod ne sait pas les copier, cela causerait un 'timeout'. 
 <file from="root/images/*.*" to="images/*.*" />   
 2) lancer l’installateur ou m.a.j, demarrez install/index.php
-3) Rennome ou supprime le repertoire /install pour réactiver le forum.
-]]>
-</author-notes>
-<author-notes lang="de"><![CDATA[Benötigt : bbDKP 1.2.8 oder besser
+3) Rennome ou supprime le repertoire /install pour réactiver le forum.]]></author-notes>
+		<author-notes lang="de"><![CDATA[Benötigt : bbDKP 1.2.8 oder besser
 Liste der änderungen : /docs/changelog.html
 
 1) Kopiere diese Dateien zum Verzeichnis /images 
 Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies nicht kopieren wegen Auszeit. 
 <file from="root/images/*.*" to="images/*.*" />   
 2) Datenbank Installation order aktualisierung : install/index.php 
-3) lösche, verschiebe oder benenne das Installations-Verzeichnis „install" damit das Forum wieder zugänglich wird.
-
-]]>
-</author-notes>
-<author-group>
+3) lösche, verschiebe oder benenne das Installations-Verzeichnis „install" damit das Forum wieder zugänglich wird.]]></author-notes>
+		<author-group>
 			<author>
 				<realname><![CDATA[Andy Vandenberghe]]></realname>
 				<username><![CDATA[Sajaki]]></username>
@@ -86,21 +79,21 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 			<target-version>3.0.11</target-version>
 		</installation>
 		<link-group>
-			<link type="language" lang="en" href="contrib/fr.xml">French</link>
-			<link type="language" lang="fr" href="contrib/fr.xml">Français</link>
-			<link type="language" lang="de" href="contrib/fr.xml">Franzözisch</link>
-			<link type="language" lang="en" href="contrib/de.xml">German</link>
-			<link type="language" lang="fr" href="contrib/de.xml">Allemand</link>
-			<link type="language" lang="de" href="contrib/de.xml">Deutsch</link>	
-			</link-group>
+			<link type="language" href="contrib/fr.xml" lang="en">French</link>
+			<link type="language" href="contrib/fr.xml" lang="fr">Français</link>
+			<link type="language" href="contrib/fr.xml" lang="de">Franzözisch</link>
+			<link type="language" href="contrib/de.xml" lang="en">German</link>
+			<link type="language" href="contrib/de.xml" lang="fr">Allemand</link>
+			<link type="language" href="contrib/de.xml" lang="de">Deutsch</link>
+		</link-group>
 	</header>
 	<action-group>
 		<copy>
 			<file from="root/includes/bbdkp/module/bossprogress.php" to="includes/bbdkp/module/bossprogress.php"/>
 			<file from="root/adm/style/dkp/acp_zoneprogress.html" to="adm/style/dkp/acp_zoneprogress.html"/>
-			<file from="root/adm/style/dkp/acp_bossprogress.html" to="adm/style/dkp/acp_bossprogress.html"/>			
+			<file from="root/adm/style/dkp/acp_bossprogress.html" to="adm/style/dkp/acp_bossprogress.html"/>
 			<file from="root/includes/bbdkp/block/bossprogressblock.php" to="includes/bbdkp/block/bossprogressblock.php"/>
-			<file from="root/includes/acp/*.*" to="includes/acp/*.*"/>			
+			<file from="root/includes/acp/*.*" to="includes/acp/*.*"/>
 			<file from="root/install/*.*" to="install/*.*"/>
 			<file from="root/language/en/mods/*.*" to="language/en/mods/*.*"/>
 			<file from="root/styles/prosilver/template/dkp/module/bossprogress.html" to="styles/prosilver/template/dkp/module/bossprogress.html"/>
@@ -108,64 +101,54 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 			<file from="root/styles/prosilver/theme/bossprogress.css" to="styles/prosilver/theme/bossprogress.css"/>
 			<file from="root/umil/*.*" to="umil/*.*"/>
 		</copy>
-
-		<open src="/styles/prosilver/theme/stylesheet.css">
-			<edit>
-				<comment lang="en"><![CDATA[bossprogress css]]></comment>
-				<comment lang="fr"><![CDATA[bossprogress css]]></comment>
-				<comment lang="de"><![CDATA[bossprogress css]]></comment>								
-				<find><![CDATA[@import url("bbdkp.css");]]></find>
-				<action type="after-add"><![CDATA[
-@import url("bossprogress.css");
-]]></action>
-			</edit>
-		</open>
-
 		<open src="/styles/prosilver/template/dkp/dkpmain.html">
 			<edit>
 				<comment lang="en"><![CDATA[add boss progress module]]></comment>
 				<comment lang="fr"><![CDATA[ajoute module ]]></comment>
-				<comment lang="de"><![CDATA[neue module hineinschieben]]></comment>								
+				<comment lang="de"><![CDATA[neue module hineinschieben]]></comment>
 				<find><![CDATA[<!-- [+] Bossprogress -->]]></find>
-				<action type="after-add"><![CDATA[
-<!-- IF S_BPSHOW -->
+				<action type="after-add"><![CDATA[<!-- IF S_BPSHOW -->
 <!-- INCLUDE dkp/module/bossprogress.html -->
 <!-- ENDIF -->
 ]]></action>
 			</edit>
 		</open>
-				
-		
 		<open src="/styles/prosilver/template/dkp/news_body.html">
 			<edit>
 				<comment lang="en"><![CDATA[add boss progress block]]></comment>
 				<comment lang="fr"><![CDATA[ajoute block dans portail]]></comment>
-				<comment lang="de"><![CDATA[neues Portalblock hineinschieben ]]></comment>								
+				<comment lang="de"><![CDATA[neues Portalblock hineinschieben ]]></comment>
 				<find><![CDATA[<!-- IF S_DISPLAY_RECRUIT -->
 <!-- INCLUDE dkp/block/recruitment.html -->
 <br/>
 <!-- ENDIF -->]]></find>
 				<action type="after-add"><![CDATA[
-
 <!-- IF S_BPSHOW -->
 <!-- INCLUDE dkp/block/bossprogress.html -->
 <br/>
 <!-- ENDIF -->]]></action>
 			</edit>
 		</open>
-				
 		<open src="/styles/prosilver/template/dkp/module/menu.html">
 			<edit>
 				<comment lang="en"><![CDATA[bossprogress menu]]></comment>
 				<comment lang="fr"><![CDATA[bossprogress menu]]></comment>
-				<comment lang="de"><![CDATA[bossprogress menu]]></comment>								
+				<comment lang="de"><![CDATA[bossprogress menu]]></comment>
 				<find><![CDATA[<a href="{U_LISTITEMHIST}">{L_MENU_ITEMHIST}</a>]]></find>
 				<action type="after-add"><![CDATA[	&nbsp; &nbsp;<a href="{U_BP}">{L_MENU_BOSS}</a>
 ]]></action>
 			</edit>
 		</open>
-		
-		
+		<open src="/styles/prosilver/theme/stylesheet.css">
+			<edit>
+				<comment lang="en"><![CDATA[bossprogress css]]></comment>
+				<comment lang="fr"><![CDATA[bossprogress css]]></comment>
+				<comment lang="de"><![CDATA[bossprogress css]]></comment>
+				<find><![CDATA[@import url("bbdkp.css");]]></find>
+				<action type="after-add"><![CDATA[@import url("bossprogress.css");
+]]></action>
+			</edit>
+		</open>
 		<php-installer><![CDATA[install/index.php]]></php-installer>
 		<diy-instructions lang="en"><![CDATA[Please see the full installation and upgrade instructions here : /docs/install.html
 
@@ -177,7 +160,7 @@ Automod cannot handle it as it would lead to a timeout due to the size (21,9mb) 
 2) Run Bossprogress database installation : install/index.php 
 3) Finally rename the install folder. 
 		Enjoy ;)]]></diy-instructions>
-<diy-instructions lang="fr"><![CDATA[le guide d’installation et mise à jour : /docs/install.html
+		<diy-instructions lang="fr"><![CDATA[le guide d’installation et mise à jour : /docs/install.html
 
 Résumé des étapes de post-installation
 
@@ -186,8 +169,8 @@ En raison de la taille de ce répertoires (±21,mb), Automod ne sait pas les cop
 <file from="root/images/*.*" to="images/*.*" />   
 2) lancer l’installateur ou m.a.j, demarrez install/index.php
 3) Rennome ou supprime le repertoire /install pour réactiver le forum.
-Success ;)	]]></diy-instructions>		
-<diy-instructions lang="de"><![CDATA[Installations und Upgradeanweisungen : /docs/install.html
+Success ;)]]></diy-instructions>
+		<diy-instructions lang="de"><![CDATA[Installations und Upgradeanweisungen : /docs/install.html
 
 1) Kopiere diese Dateien zum Verzeichnis /images 
 Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies nicht kopieren wegen Auszeit. 
@@ -195,6 +178,6 @@ Aus Berücksichtigung der Grösse der Verzeichnisse (±21mb), kann Automod dies 
 2) Datenbank Installation order aktualisierung : install/index.php 
 3) lösche, verschiebe oder benenne das Installations-Verzeichnis „install" damit das Forum wieder zugänglich wird.
 
-Viel Spaß ;)	]]></diy-instructions>		
+Viel Spaß ;)]]></diy-instructions>
 	</action-group>
 </mod>
